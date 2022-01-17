@@ -1,0 +1,737 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00E356F31AD99517003FC87E /* BluetoothTracingAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BluetoothTracingAppTests.m */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		FA05BA16C49E44FBBFD9F097 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D97F5D84E049406581C752E2 /* AntDesign.ttf */; };
+		6DFC6E2D3EBA4B3A97A6A25A /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59CCBBD5C57042FFA634B57E /* Entypo.ttf */; };
+		C2D9B895487041018A250AFA /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94BE8ECE1A784BEAA0AF56F6 /* EvilIcons.ttf */; };
+		8C9CF52D49974087A4412405 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE86A97DAD1A492CB71B2DF1 /* Feather.ttf */; };
+		D3B715D9CBA94CA2B9D84BC2 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC0F8DFA264045A68D0D5187 /* FontAwesome.ttf */; };
+		1E726A13412B4D219C209828 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 870FEB3E60674205A99299F8 /* FontAwesome5_Brands.ttf */; };
+		D92FE68504EC44B0BA339437 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD64974A5ECE4F13B170B293 /* FontAwesome5_Regular.ttf */; };
+		076169ACDB7940E5987F6CEE /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BD6C9E9401940C3A344B734 /* FontAwesome5_Solid.ttf */; };
+		68794AEA6F764BEF931C186C /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AF3048AD6064C2C93F6438D /* Fontisto.ttf */; };
+		B4C70A1992294DFBAD28CF29 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DE873706A5A4EF68253ECA7 /* Foundation.ttf */; };
+		1CE30C662DD84E5493926817 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1343AA1800574035A89DF5F4 /* Ionicons.ttf */; };
+		24B075E8CC844A0C85BCFED2 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A81233DECA4D3C9A5E9B7D /* MaterialCommunityIcons.ttf */; };
+		C723BBE6FA44425D8D87AB4F /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D4608F6989341E1AA27A68A /* MaterialIcons.ttf */; };
+		B29CCAAF0BF344B099590A05 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AB6F0762F4C2CB552159D /* Octicons.ttf */; };
+		9B6D8DF76FFC48CCB8E5F9CA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92BCA2051AF94680B4F4292E /* SimpleLineIcons.ttf */; };
+		11BA8AA4C9334E69A2D53D8B /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFF029B189D74DF393BD21DF /* Zocial.ttf */; };
+		844BF60F63964D7AA6402D7E /* SF-Pro-Display-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0115E11BB58246CBADDC4514 /* SF-Pro-Display-Black.otf */; };
+		B3CA432B02844546BBBAA528 /* SF-Pro-Display-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9A3266B64EC7425490E0BA2F /* SF-Pro-Display-BlackItalic.otf */; };
+		46BDA42202B448D5A638917E /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1BC0919F59914D1BAD892C79 /* SF-Pro-Display-Bold.otf */; };
+		F2F5DF3F10504C9EBAE681CC /* SF-Pro-Display-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8215AA5871F643C48AB52B2D /* SF-Pro-Display-BoldItalic.otf */; };
+		01968FF639184F99966D5DB0 /* SF-Pro-Display-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F1559DF8AB427A97B36F91 /* SF-Pro-Display-Heavy.otf */; };
+		F2FC080763D3425F99051990 /* SF-Pro-Display-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 260FE43F67C24511AF13BF4E /* SF-Pro-Display-HeavyItalic.otf */; };
+		C769A677273D4F2DBDD4113F /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 758AF91B30D542DFB50F525A /* SF-Pro-Display-Light.otf */; };
+		BC30A15800104A8D97522A10 /* SF-Pro-Display-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12662BC1492D48EC9DB8F65F /* SF-Pro-Display-LightItalic.otf */; };
+		2615C835C17143BAB897F3E7 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF7B65C34E4143389E161504 /* SF-Pro-Display-Medium.otf */; };
+		E02802D5FD8A4C8F99732CE9 /* SF-Pro-Display-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6BF36AD876AB48529634A146 /* SF-Pro-Display-MediumItalic.otf */; };
+		31D6D89FAA0D476BAB4460F7 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE9E1FF12C2444380CE3C51 /* SF-Pro-Display-Regular.otf */; };
+		B6FF49848D674743B221209B /* SF-Pro-Display-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A60CB0E2503E420BA056C6B4 /* SF-Pro-Display-RegularItalic.otf */; };
+		2229AD470E0847F396EE234C /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DEF635BE52A5446AB4EF50DA /* SF-Pro-Display-Semibold.otf */; };
+		6DD84EC92DB54C1DBE89476E /* SF-Pro-Display-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 958D4504738D47D8A3844115 /* SF-Pro-Display-SemiboldItalic.otf */; };
+		299DBFC1396E4B168FCB467F /* SF-Pro-Display-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 52176485F75F41A9998ACEB2 /* SF-Pro-Display-Thin.otf */; };
+		76BCA43D51984F91BCF9C2B1 /* SF-Pro-Display-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5EC0F2A070B49898E34D07E /* SF-Pro-Display-ThinItalic.otf */; };
+		853EA719F2084F998D36ADC1 /* SF-Pro-Display-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6F08F58DACB44BDC9254DAF0 /* SF-Pro-Display-Ultralight.otf */; };
+		BEA4C4C2CC8F487198F411F3 /* SF-Pro-Display-UltralightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50380F8652B04A4287C678B1 /* SF-Pro-Display-UltralightItalic.otf */; };
+		462D060AD5954C3DAC3CB8A8 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7EC27772E87E4D7588CB8C05 /* SF-Pro-Text-Bold.otf */; };
+		E5C0FACD0BC44980995DA3A9 /* SF-Pro-Text-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = D436AF2CC80644BF9BBD4966 /* SF-Pro-Text-BoldItalic.otf */; };
+		4A365A5F9F1646729683608B /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 62C7770AB85C4A3587DBC166 /* SF-Pro-Text-Heavy.otf */; };
+		CE5A3A31E1BE4842BA9C919B /* SF-Pro-Text-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9E6E30145924BDE8B59D21B /* SF-Pro-Text-HeavyItalic.otf */; };
+		EC13875BE27A4B79976D989D /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4ED4D5E6D31B49C7902CF446 /* SF-Pro-Text-Light.otf */; };
+		D2544E468FCD49C39E5D7A25 /* SF-Pro-Text-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9800F81B025B4558BC9A91A0 /* SF-Pro-Text-LightItalic.otf */; };
+		94756DCBC6DD49F4A297CC6D /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5EAD01D93974B99B9E2F3F3 /* SF-Pro-Text-Medium.otf */; };
+		AFE3BDE5E96E46F88066C902 /* SF-Pro-Text-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4C98ED385C544FC0927D863B /* SF-Pro-Text-MediumItalic.otf */; };
+		56A8BC69968941F18459379C /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F85BFD81DA79444C9638698C /* SF-Pro-Text-Regular.otf */; };
+		58F8ACD1462A43D4A8AB111F /* SF-Pro-Text-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18DD0A7D5EA9465595CC7128 /* SF-Pro-Text-RegularItalic.otf */; };
+		8782674BA7804056A8E74EC2 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 663C135E7D79470DA3B289B1 /* SF-Pro-Text-Semibold.otf */; };
+		ED3F2130371C4076AD670BE7 /* SF-Pro-Text-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 729922DBA65C4C89BDD7CBF5 /* SF-Pro-Text-SemiboldItalic.otf */; };
+		A4C44E2686D84D3188A1A777 /* SFUIText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 41A6D83B22734642A755483C /* SFUIText-Regular.otf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = BluetoothTracingApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00E356EE1AD99517003FC87E /* BluetoothTracingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothTracingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* BluetoothTracingAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothTracingAppTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* BluetoothTracingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothTracingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BluetoothTracingApp/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = BluetoothTracingApp/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BluetoothTracingApp/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BluetoothTracingApp/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BluetoothTracingApp/main.m; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BluetoothTracingApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		D97F5D84E049406581C752E2 /* AntDesign.ttf */ = {isa = PBXFileReference; name = "AntDesign.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		59CCBBD5C57042FFA634B57E /* Entypo.ttf */ = {isa = PBXFileReference; name = "Entypo.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		94BE8ECE1A784BEAA0AF56F6 /* EvilIcons.ttf */ = {isa = PBXFileReference; name = "EvilIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BE86A97DAD1A492CB71B2DF1 /* Feather.ttf */ = {isa = PBXFileReference; name = "Feather.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BC0F8DFA264045A68D0D5187 /* FontAwesome.ttf */ = {isa = PBXFileReference; name = "FontAwesome.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		870FEB3E60674205A99299F8 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Brands.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DD64974A5ECE4F13B170B293 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Regular.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9BD6C9E9401940C3A344B734 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Solid.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2AF3048AD6064C2C93F6438D /* Fontisto.ttf */ = {isa = PBXFileReference; name = "Fontisto.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7DE873706A5A4EF68253ECA7 /* Foundation.ttf */ = {isa = PBXFileReference; name = "Foundation.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1343AA1800574035A89DF5F4 /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B3A81233DECA4D3C9A5E9B7D /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; name = "MaterialCommunityIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3D4608F6989341E1AA27A68A /* MaterialIcons.ttf */ = {isa = PBXFileReference; name = "MaterialIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2D2AB6F0762F4C2CB552159D /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		92BCA2051AF94680B4F4292E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FFF029B189D74DF393BD21DF /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0115E11BB58246CBADDC4514 /* SF-Pro-Display-Black.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-Black.otf"; path = "../assets/fonts/SF-Pro-Display-Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9A3266B64EC7425490E0BA2F /* SF-Pro-Display-BlackItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-BlackItalic.otf"; path = "../assets/fonts/SF-Pro-Display-BlackItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1BC0919F59914D1BAD892C79 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-Bold.otf"; path = "../assets/fonts/SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8215AA5871F643C48AB52B2D /* SF-Pro-Display-BoldItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-BoldItalic.otf"; path = "../assets/fonts/SF-Pro-Display-BoldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		50F1559DF8AB427A97B36F91 /* SF-Pro-Display-Heavy.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-Heavy.otf"; path = "../assets/fonts/SF-Pro-Display-Heavy.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		260FE43F67C24511AF13BF4E /* SF-Pro-Display-HeavyItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-HeavyItalic.otf"; path = "../assets/fonts/SF-Pro-Display-HeavyItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		758AF91B30D542DFB50F525A /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-Light.otf"; path = "../assets/fonts/SF-Pro-Display-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		12662BC1492D48EC9DB8F65F /* SF-Pro-Display-LightItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-LightItalic.otf"; path = "../assets/fonts/SF-Pro-Display-LightItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AF7B65C34E4143389E161504 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-Medium.otf"; path = "../assets/fonts/SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6BF36AD876AB48529634A146 /* SF-Pro-Display-MediumItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-MediumItalic.otf"; path = "../assets/fonts/SF-Pro-Display-MediumItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1CE9E1FF12C2444380CE3C51 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-Regular.otf"; path = "../assets/fonts/SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A60CB0E2503E420BA056C6B4 /* SF-Pro-Display-RegularItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-RegularItalic.otf"; path = "../assets/fonts/SF-Pro-Display-RegularItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DEF635BE52A5446AB4EF50DA /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-Semibold.otf"; path = "../assets/fonts/SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		958D4504738D47D8A3844115 /* SF-Pro-Display-SemiboldItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-SemiboldItalic.otf"; path = "../assets/fonts/SF-Pro-Display-SemiboldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		52176485F75F41A9998ACEB2 /* SF-Pro-Display-Thin.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-Thin.otf"; path = "../assets/fonts/SF-Pro-Display-Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B5EC0F2A070B49898E34D07E /* SF-Pro-Display-ThinItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-ThinItalic.otf"; path = "../assets/fonts/SF-Pro-Display-ThinItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6F08F58DACB44BDC9254DAF0 /* SF-Pro-Display-Ultralight.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-Ultralight.otf"; path = "../assets/fonts/SF-Pro-Display-Ultralight.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		50380F8652B04A4287C678B1 /* SF-Pro-Display-UltralightItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Display-UltralightItalic.otf"; path = "../assets/fonts/SF-Pro-Display-UltralightItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7EC27772E87E4D7588CB8C05 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-Bold.otf"; path = "../assets/fonts/SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D436AF2CC80644BF9BBD4966 /* SF-Pro-Text-BoldItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-BoldItalic.otf"; path = "../assets/fonts/SF-Pro-Text-BoldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		62C7770AB85C4A3587DBC166 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-Heavy.otf"; path = "../assets/fonts/SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C9E6E30145924BDE8B59D21B /* SF-Pro-Text-HeavyItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-HeavyItalic.otf"; path = "../assets/fonts/SF-Pro-Text-HeavyItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4ED4D5E6D31B49C7902CF446 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-Light.otf"; path = "../assets/fonts/SF-Pro-Text-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9800F81B025B4558BC9A91A0 /* SF-Pro-Text-LightItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-LightItalic.otf"; path = "../assets/fonts/SF-Pro-Text-LightItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D5EAD01D93974B99B9E2F3F3 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-Medium.otf"; path = "../assets/fonts/SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4C98ED385C544FC0927D863B /* SF-Pro-Text-MediumItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-MediumItalic.otf"; path = "../assets/fonts/SF-Pro-Text-MediumItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F85BFD81DA79444C9638698C /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-Regular.otf"; path = "../assets/fonts/SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		18DD0A7D5EA9465595CC7128 /* SF-Pro-Text-RegularItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-RegularItalic.otf"; path = "../assets/fonts/SF-Pro-Text-RegularItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		663C135E7D79470DA3B289B1 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-Semibold.otf"; path = "../assets/fonts/SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		729922DBA65C4C89BDD7CBF5 /* SF-Pro-Text-SemiboldItalic.otf */ = {isa = PBXFileReference; name = "SF-Pro-Text-SemiboldItalic.otf"; path = "../assets/fonts/SF-Pro-Text-SemiboldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		41A6D83B22734642A755483C /* SFUIText-Regular.otf */ = {isa = PBXFileReference; name = "SFUIText-Regular.otf"; path = "../assets/fonts/SFUIText-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00E356EB1AD99517003FC87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* BluetoothTracingAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F21AD99517003FC87E /* BluetoothTracingAppTests.m */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+			);
+			path = BluetoothTracingAppTests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13B07FAE1A68108700A75B9A /* BluetoothTracingApp */ = {
+			isa = PBXGroup;
+			children = (
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				13B07FB71A68108700A75B9A /* main.m */,
+			);
+			name = BluetoothTracingApp;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				13B07FAE1A68108700A75B9A /* BluetoothTracingApp */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				00E356EF1AD99517003FC87E /* BluetoothTracingAppTests */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				6D283216EBE04AC886D689E2 /* Resources */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* BluetoothTracingApp.app */,
+				00E356EE1AD99517003FC87E /* BluetoothTracingAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6D283216EBE04AC886D689E2 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				D97F5D84E049406581C752E2 /* AntDesign.ttf */,
+				59CCBBD5C57042FFA634B57E /* Entypo.ttf */,
+				94BE8ECE1A784BEAA0AF56F6 /* EvilIcons.ttf */,
+				BE86A97DAD1A492CB71B2DF1 /* Feather.ttf */,
+				BC0F8DFA264045A68D0D5187 /* FontAwesome.ttf */,
+				870FEB3E60674205A99299F8 /* FontAwesome5_Brands.ttf */,
+				DD64974A5ECE4F13B170B293 /* FontAwesome5_Regular.ttf */,
+				9BD6C9E9401940C3A344B734 /* FontAwesome5_Solid.ttf */,
+				2AF3048AD6064C2C93F6438D /* Fontisto.ttf */,
+				7DE873706A5A4EF68253ECA7 /* Foundation.ttf */,
+				1343AA1800574035A89DF5F4 /* Ionicons.ttf */,
+				B3A81233DECA4D3C9A5E9B7D /* MaterialCommunityIcons.ttf */,
+				3D4608F6989341E1AA27A68A /* MaterialIcons.ttf */,
+				2D2AB6F0762F4C2CB552159D /* Octicons.ttf */,
+				92BCA2051AF94680B4F4292E /* SimpleLineIcons.ttf */,
+				FFF029B189D74DF393BD21DF /* Zocial.ttf */,
+				0115E11BB58246CBADDC4514 /* SF-Pro-Display-Black.otf */,
+				9A3266B64EC7425490E0BA2F /* SF-Pro-Display-BlackItalic.otf */,
+				1BC0919F59914D1BAD892C79 /* SF-Pro-Display-Bold.otf */,
+				8215AA5871F643C48AB52B2D /* SF-Pro-Display-BoldItalic.otf */,
+				50F1559DF8AB427A97B36F91 /* SF-Pro-Display-Heavy.otf */,
+				260FE43F67C24511AF13BF4E /* SF-Pro-Display-HeavyItalic.otf */,
+				758AF91B30D542DFB50F525A /* SF-Pro-Display-Light.otf */,
+				12662BC1492D48EC9DB8F65F /* SF-Pro-Display-LightItalic.otf */,
+				AF7B65C34E4143389E161504 /* SF-Pro-Display-Medium.otf */,
+				6BF36AD876AB48529634A146 /* SF-Pro-Display-MediumItalic.otf */,
+				1CE9E1FF12C2444380CE3C51 /* SF-Pro-Display-Regular.otf */,
+				A60CB0E2503E420BA056C6B4 /* SF-Pro-Display-RegularItalic.otf */,
+				DEF635BE52A5446AB4EF50DA /* SF-Pro-Display-Semibold.otf */,
+				958D4504738D47D8A3844115 /* SF-Pro-Display-SemiboldItalic.otf */,
+				52176485F75F41A9998ACEB2 /* SF-Pro-Display-Thin.otf */,
+				B5EC0F2A070B49898E34D07E /* SF-Pro-Display-ThinItalic.otf */,
+				6F08F58DACB44BDC9254DAF0 /* SF-Pro-Display-Ultralight.otf */,
+				50380F8652B04A4287C678B1 /* SF-Pro-Display-UltralightItalic.otf */,
+				7EC27772E87E4D7588CB8C05 /* SF-Pro-Text-Bold.otf */,
+				D436AF2CC80644BF9BBD4966 /* SF-Pro-Text-BoldItalic.otf */,
+				62C7770AB85C4A3587DBC166 /* SF-Pro-Text-Heavy.otf */,
+				C9E6E30145924BDE8B59D21B /* SF-Pro-Text-HeavyItalic.otf */,
+				4ED4D5E6D31B49C7902CF446 /* SF-Pro-Text-Light.otf */,
+				9800F81B025B4558BC9A91A0 /* SF-Pro-Text-LightItalic.otf */,
+				D5EAD01D93974B99B9E2F3F3 /* SF-Pro-Text-Medium.otf */,
+				4C98ED385C544FC0927D863B /* SF-Pro-Text-MediumItalic.otf */,
+				F85BFD81DA79444C9638698C /* SF-Pro-Text-Regular.otf */,
+				18DD0A7D5EA9465595CC7128 /* SF-Pro-Text-RegularItalic.otf */,
+				663C135E7D79470DA3B289B1 /* SF-Pro-Text-Semibold.otf */,
+				729922DBA65C4C89BDD7CBF5 /* SF-Pro-Text-SemiboldItalic.otf */,
+				41A6D83B22734642A755483C /* SFUIText-Regular.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00E356ED1AD99517003FC87E /* BluetoothTracingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BluetoothTracingAppTests" */;
+			buildPhases = (
+				00E356EA1AD99517003FC87E /* Sources */,
+				00E356EB1AD99517003FC87E /* Frameworks */,
+				00E356EC1AD99517003FC87E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+			);
+			name = BluetoothTracingAppTests;
+			productName = BluetoothTracingAppTests;
+			productReference = 00E356EE1AD99517003FC87E /* BluetoothTracingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		13B07F861A680F5B00A75B9A /* BluetoothTracingApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BluetoothTracingApp" */;
+			buildPhases = (
+				FD10A7F022414F080027D42C /* Start Packager */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BluetoothTracingApp;
+			productName = BluetoothTracingApp;
+			productReference = 13B07F961A680F5B00A75B9A /* BluetoothTracingApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					00E356ED1AD99517003FC87E = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1120;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BluetoothTracingApp" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* BluetoothTracingApp */,
+				00E356ED1AD99517003FC87E /* BluetoothTracingAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00E356EC1AD99517003FC87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				FA05BA16C49E44FBBFD9F097 /* AntDesign.ttf in Resources */,
+				6DFC6E2D3EBA4B3A97A6A25A /* Entypo.ttf in Resources */,
+				C2D9B895487041018A250AFA /* EvilIcons.ttf in Resources */,
+				8C9CF52D49974087A4412405 /* Feather.ttf in Resources */,
+				D3B715D9CBA94CA2B9D84BC2 /* FontAwesome.ttf in Resources */,
+				1E726A13412B4D219C209828 /* FontAwesome5_Brands.ttf in Resources */,
+				D92FE68504EC44B0BA339437 /* FontAwesome5_Regular.ttf in Resources */,
+				076169ACDB7940E5987F6CEE /* FontAwesome5_Solid.ttf in Resources */,
+				68794AEA6F764BEF931C186C /* Fontisto.ttf in Resources */,
+				B4C70A1992294DFBAD28CF29 /* Foundation.ttf in Resources */,
+				1CE30C662DD84E5493926817 /* Ionicons.ttf in Resources */,
+				24B075E8CC844A0C85BCFED2 /* MaterialCommunityIcons.ttf in Resources */,
+				C723BBE6FA44425D8D87AB4F /* MaterialIcons.ttf in Resources */,
+				B29CCAAF0BF344B099590A05 /* Octicons.ttf in Resources */,
+				9B6D8DF76FFC48CCB8E5F9CA /* SimpleLineIcons.ttf in Resources */,
+				11BA8AA4C9334E69A2D53D8B /* Zocial.ttf in Resources */,
+				844BF60F63964D7AA6402D7E /* SF-Pro-Display-Black.otf in Resources */,
+				B3CA432B02844546BBBAA528 /* SF-Pro-Display-BlackItalic.otf in Resources */,
+				46BDA42202B448D5A638917E /* SF-Pro-Display-Bold.otf in Resources */,
+				F2F5DF3F10504C9EBAE681CC /* SF-Pro-Display-BoldItalic.otf in Resources */,
+				01968FF639184F99966D5DB0 /* SF-Pro-Display-Heavy.otf in Resources */,
+				F2FC080763D3425F99051990 /* SF-Pro-Display-HeavyItalic.otf in Resources */,
+				C769A677273D4F2DBDD4113F /* SF-Pro-Display-Light.otf in Resources */,
+				BC30A15800104A8D97522A10 /* SF-Pro-Display-LightItalic.otf in Resources */,
+				2615C835C17143BAB897F3E7 /* SF-Pro-Display-Medium.otf in Resources */,
+				E02802D5FD8A4C8F99732CE9 /* SF-Pro-Display-MediumItalic.otf in Resources */,
+				31D6D89FAA0D476BAB4460F7 /* SF-Pro-Display-Regular.otf in Resources */,
+				B6FF49848D674743B221209B /* SF-Pro-Display-RegularItalic.otf in Resources */,
+				2229AD470E0847F396EE234C /* SF-Pro-Display-Semibold.otf in Resources */,
+				6DD84EC92DB54C1DBE89476E /* SF-Pro-Display-SemiboldItalic.otf in Resources */,
+				299DBFC1396E4B168FCB467F /* SF-Pro-Display-Thin.otf in Resources */,
+				76BCA43D51984F91BCF9C2B1 /* SF-Pro-Display-ThinItalic.otf in Resources */,
+				853EA719F2084F998D36ADC1 /* SF-Pro-Display-Ultralight.otf in Resources */,
+				BEA4C4C2CC8F487198F411F3 /* SF-Pro-Display-UltralightItalic.otf in Resources */,
+				462D060AD5954C3DAC3CB8A8 /* SF-Pro-Text-Bold.otf in Resources */,
+				E5C0FACD0BC44980995DA3A9 /* SF-Pro-Text-BoldItalic.otf in Resources */,
+				4A365A5F9F1646729683608B /* SF-Pro-Text-Heavy.otf in Resources */,
+				CE5A3A31E1BE4842BA9C919B /* SF-Pro-Text-HeavyItalic.otf in Resources */,
+				EC13875BE27A4B79976D989D /* SF-Pro-Text-Light.otf in Resources */,
+				D2544E468FCD49C39E5D7A25 /* SF-Pro-Text-LightItalic.otf in Resources */,
+				94756DCBC6DD49F4A297CC6D /* SF-Pro-Text-Medium.otf in Resources */,
+				AFE3BDE5E96E46F88066C902 /* SF-Pro-Text-MediumItalic.otf in Resources */,
+				56A8BC69968941F18459379C /* SF-Pro-Text-Regular.otf in Resources */,
+				58F8ACD1462A43D4A8AB111F /* SF-Pro-Text-RegularItalic.otf in Resources */,
+				8782674BA7804056A8E74EC2 /* SF-Pro-Text-Semibold.otf in Resources */,
+				ED3F2130371C4076AD670BE7 /* SF-Pro-Text-SemiboldItalic.otf in Resources */,
+				A4C44E2686D84D3188A1A777 /* SFUIText-Regular.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		FD10A7F022414F080027D42C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00E356EA1AD99517003FC87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00E356F31AD99517003FC87E /* BluetoothTracingAppTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* BluetoothTracingApp */;
+			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		00E356F61AD99517003FC87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BluetoothTracingAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothTracingApp.app/BluetoothTracingApp";
+			};
+			name = Debug;
+		};
+		00E356F71AD99517003FC87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = BluetoothTracingAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothTracingApp.app/BluetoothTracingApp";
+			};
+			name = Release;
+		};
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = BluetoothTracingApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = BluetoothTracingApp;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = BluetoothTracingApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = BluetoothTracingApp;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BluetoothTracingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F61AD99517003FC87E /* Debug */,
+				00E356F71AD99517003FC87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BluetoothTracingApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BluetoothTracingApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}

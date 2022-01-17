@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "843906366317",
+    "project_id": "jomtracetogether",
+    "storage_bucket": "jomtracetogether.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843906366317:android:4d8a303e1be4e09a08b864",
+        "android_client_info": {
+          "package_name": "com.bluetoothtracingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843906366317-7i9r6hisokmlnsvtf8vrhdtc3abr1npc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bluetoothtracingapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "843906366317-730qd5bblgoioak6d92ctjhmf58cpth4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiuC5EK94QV5h1tghXj9lYf6bK6mIdjEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843906366317-730qd5bblgoioak6d92ctjhmf58cpth4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

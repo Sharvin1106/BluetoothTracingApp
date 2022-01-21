@@ -6,13 +6,17 @@
  * @flow strict-local
  */
 // import 'react-native-gesture-handler';
-import React from 'react';
+import React,{useEffect} from 'react';
 
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import AppContainer from './src/navigator/App';
+import { initializeFirebaseRemoteConfig } from './src/utils/remoteConfig';
 
 const App = () => {
+  useEffect(()=>{
+    initializeFirebaseRemoteConfig();
+  },[])
   return (
     <PaperProvider>
       <AppContainer />

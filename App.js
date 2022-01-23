@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 // import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React,{useEffect} from 'react';
 
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -20,14 +20,9 @@ const App = () => {
     BackgroundTaskServices.start();
     BLEBackgroundService.init();
     createChannel();
+    initializeFirebaseRemoteConfig();
   });
-  return (
-    <PaperProvider>
-      <AppContainer />
-    </PaperProvider>
-  );
-};
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

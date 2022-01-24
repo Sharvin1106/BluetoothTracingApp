@@ -14,6 +14,7 @@ import AppContainer from './src/navigator/App';
 import BLEBackgroundService from './src/services/BackgroundBleService';
 import BackgroundTaskServices from './src/services/BackgroundTaskService';
 import {createChannel} from './src/services/NotificationService';
+import { initializeFirebaseRemoteConfig } from './src/utils/remoteConfig';
 
 const App = () => {
   useEffect(() => {

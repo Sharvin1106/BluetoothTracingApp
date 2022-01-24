@@ -18,5 +18,10 @@ apiV1.interceptors.response.use(
 
 export const getAllLocations = async () => {
   const response = await apiV1.get('/getLocations');
-  return response;
+  return response.data;
+};
+
+export const createUser = async data => {
+  const response = await apiV1.post('/createUser', data);
+  return response.data;
 };

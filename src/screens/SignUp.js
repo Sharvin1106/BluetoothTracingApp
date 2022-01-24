@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 import {onGoogleButtonPress} from '../utils/Auth';
+import {createUser} from '../api';
+import {ASYNC_STORAGE_KEY, storeData} from '../utils/storage';
 
 const SignUp = ({navigation}) => {
-  
   return (
     <View style={styles.container}>
       <Text style={{fontSize: 25, marginTop: 20}}>Welcome! </Text>
@@ -22,7 +23,13 @@ const SignUp = ({navigation}) => {
         <GoogleSigninButton
           onPress={async () => {
             const auth = await onGoogleButtonPress();
-            if (auth.user) navigation.navigate('Home');
+            if (auth?.additionalUserInfo.isNewUser) {
+              const createUser = await createUser(auth.user.uid);
+              storeData(ASYNC_STORAGE_KEY.USER_UUID, createUser);
+            } else {
+              const user = 
+              storeData(ASYNC_STORAGE_KEY.USER_UUID, createUser);
+            }
           }}
         />
       </View>

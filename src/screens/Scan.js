@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,useCallback, useEffect } from 'react';
 import { Alert, StyleSheet, ActivityIndicator, FlatList, Text, View, TouchableOpacity } from 'react-native';
 import { REMOTE_CONFIG_KEY,readRemoteConfigValue } from '../utils/remoteConfig';
 import moment from 'moment'; 
+import {getAllLocations} from '../api';
 
 const Scan = ({navigation}) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
@@ -19,17 +20,21 @@ const Scan = ({navigation}) => {
     const checkInSuccessful = (index) => {
       var date = moment().format("DD/MM/YYYY");
       var time = moment().format("HH:mm:ss");
-      var loc = users[index].loc_name;
+      var loc = users[index].locationName;
       console.log(loc);
       createCheckInAlert(date,time,loc);
     }
 
-  useEffect(() => {
-    const location = JSON.parse(readRemoteConfigValue(REMOTE_CONFIG_KEY.SCAN_LOCATION));
-    setUsers(location);
-    setLoading(false);
-  
-  }, []);
+    const getLocationDetails = useCallback(async () => {
+      const locations = await getAllLocations();
+      console.log(locations);
+      setUsers(locations);
+    });
+
+    useEffect(() => {
+      getLocationDetails();
+      setLoading(false);
+    }, [navigation]);
 
   if (loading) {
     return <ActivityIndicator />;
@@ -41,7 +46,7 @@ const Scan = ({navigation}) => {
       data={users}
       renderItem={({ item,index }) => (
         <TouchableOpacity onPress= {() => checkInSuccessful(index)}>
-          <Text style={styles.item}>{item.loc_name}</Text>
+          <Text style={styles.item}>{item.locationname}</Text>
         </TouchableOpacity>
       )}
     />

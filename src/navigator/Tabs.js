@@ -15,7 +15,7 @@ const Tabs = () => {
       screenOptions={{
         tabBarActiveTintColor: '#1AEBA4',
       }}>
-      <Tab.Screen name="Home" component={Home} options={{
+      <Tab.Screen name="Main" component={Home} options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home-sharp" color={color} size={40} />

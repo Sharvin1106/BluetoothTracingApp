@@ -1,6 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, ActivityIndicator, FlatList, Text, View, TouchableOpacity } from 'react-native';
-import { REMOTE_CONFIG_KEY,readRemoteConfigValue } from '../utils/remoteConfig';
+import React, {useState, useEffect, useCallback} from 'react';
+import {
+  Alert,
+  StyleSheet,
+  ActivityIndicator,
+  FlatList,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
+import {getAllLocations} from '../api';
+
 
 const Scan = ({navigation}) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
@@ -8,20 +17,19 @@ const Scan = ({navigation}) => {
 
   const createCheckInAlert = () =>
     Alert.alert(
-      "Successfully Checked-In",
-      "Location : \r\nDate : \r\nTime : ",
-      [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
+      'Successfully Checked-In',
+      'Location : \r\nDate : \r\nTime : ',
+      [{text: 'OK', onPress: () => console.log('OK Pressed')}],
     );
-
-
+  const getLocationDetails = useCallback(async () => {
+    const locations = await getAllLocations();
+    console.log(locations);
+    setUsers(locations);
+  });
   useEffect(() => {
-    const location = JSON.parse(readRemoteConfigValue(REMOTE_CONFIG_KEY.SCAN_LOCATION));
-    setUsers(location);
+    getLocationDetails();
     setLoading(false);
-  
-  }, []);
+  }, [navigation]);
 
   if (loading) {
     return <ActivityIndicator />;
@@ -29,18 +37,19 @@ const Scan = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-    <FlatList onPress= {createCheckInAlert}
-      data={users}
-      renderItem={({ item }) => (
-        <TouchableOpacity onPress= {createCheckInAlert}>
-          <Text style={styles.item}>{item.loc_name}</Text>
-          {/* <Text>User Name: {item.name}</Text> */}
-        </TouchableOpacity>
-      )}
-    />
+      <FlatList
+        onPress={createCheckInAlert}
+        data={users}
+        renderItem={({item}) => (
+          <TouchableOpacity onPress={createCheckInAlert}>
+            <Text style={styles.item}>{item.locationName}</Text>
+            {/* <Text>User Name: {item.name}</Text> */}
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -49,7 +58,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#fff',
     borderRadius: 16,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   item: {
     flex: 1,
@@ -58,9 +67,8 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#D7E9F7',
     fontSize: 24,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 });
-
 
 export default Scan;

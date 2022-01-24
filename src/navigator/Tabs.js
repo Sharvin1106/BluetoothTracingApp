@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 const Tabs = () => {
   return (
     <Tab.Navigator 
-    tabBarOptions={{activeTintColor: '#1AEBA4',style: {height: '10%', alignItems: 'center', }}}
+    tabBarOptions={{activeTintColor: '#1AEBA4',style: {height: '6%', alignItems: 'center', }}}
     initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: '#1AEBA4',

@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
-import { Text, Animated, SafeAreaView, StatusBar, StyleSheet, View, Platform } from 'react-native';
+import { Alert, Text, Animated, SafeAreaView, StatusBar, StyleSheet, View, Platform } from 'react-native';
 import { deviceHeight } from '../helpers/constants';
+import { deviceWidth } from '../helpers/constants';
 import BottomContainer from '../components/dashboard';
 import ImageContainer from '../components/topContainer';
-import { LoadingAtom } from '../components/loadingAtom';
+// import { LoadingAtom } from '../components/loadingAtom';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-import { color } from 'react-native-reanimated';
+// import { color } from 'react-native-reanimated';
+import { ProgressChart } from "react-native-chart-kit";
+import { DonutChart } from "react-native-circular-chart";
 
 const Home = (props) => {
+
+  const data = {
+    labels: ["Apple", "Banana", "Cherry"], // optional
+    data: [0.2, 0.5, 0.8]
+  };
+
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   return (
     <View style={[styles.container]}>
@@ -26,12 +35,12 @@ const Home = (props) => {
           <View style={styles.column}>
             <Card style={styles.checkOut}>
                 <Card.Content>
-                  <Title>Checked in at BHEPA</Title>
+                  <Title>Last checked in at BHEPA</Title>
                   <Paragraph>Date: </Paragraph>
                   <Paragraph>Time: </Paragraph>
                 </Card.Content>
                 <Card.Actions>
-                  <Button style={styles.button}>Check-Out</Button>
+                  <Button onPress={() => Alert.alert('Simple Button pressed')} style={styles.button}>Check-Out</Button>
                 </Card.Actions>
               </Card>
           </View>
@@ -66,9 +75,21 @@ const Home = (props) => {
                   <Card.Content>
                     <Title>Severity Report</Title>
                   </Card.Content>
-                  <Card.Actions>
-                    <Button>Check-Out</Button>
-                  </Card.Actions>
+                  <ProgressChart
+                    data={data}
+                    width={ deviceWidth - 30 }
+                    height={220}
+                    chartConfig={{
+                      //backgroundColor: '#fff',
+                      backgroundGradientFrom: '#FFF',
+                      backgroundGradientTo: '#FFF5',
+                      //decimalPlaces: 2,
+                      color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                    }}
+                    style= {{
+                      borderRadius: 40,
+                    }}
+                  />
                 </Card>
                 </View> 
               </View>
@@ -103,6 +124,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 40,
     flex: 2,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4.84,
+
+    elevation: 5,
   },
 
   riskEst: {
@@ -114,9 +144,8 @@ const styles = StyleSheet.create({
   },
 
   seveReport: {
-    width: '50%',
     height: 220,
-    marginLeft: '1%',
+    marginHorizontal: '1%',
     alignItems: 'flex-start',
     borderRadius: 40,
     flex: 2,
@@ -156,7 +185,8 @@ paragraph: {
 button: {
   backgroundColor: '#76E6BE',
   color: '#0D4930',
-  alignItems: 'center'
+  alignItems: 'center',
+  
 },
 
 })

@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet, ActivityIndicator, FlatList, Text, View, TouchableOpacity } from 'react-native';
 import { REMOTE_CONFIG_KEY,readRemoteConfigValue } from '../utils/remoteConfig';
+import moment from 'moment'; 
 
 const Scan = ({navigation}) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [users, setUsers] = useState([]); // Initial empty array of users
 
-  const createCheckInAlert = () =>
+  const createCheckInAlert = (date, time, loc) =>
     Alert.alert(
-      "Successfully Checked-In",
-      "Location : \r\nDate : \r\nTime : ",
+      "Successfully Checked-In at " + loc,
+      "Date : " + date + "\r\nTime : " + time ,
       [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
+        { text: "OK", onPress: () => console.log("ok") }
       ]
     );
 
+    const checkInSuccessful = (index) => {
+      var date = moment().format("DD/MM/YYYY");
+      var time = moment().format("HH:mm:ss");
+      var loc = users[index].loc_name;
+      console.log(loc);
+      createCheckInAlert(date,time,loc);
+    }
 
   useEffect(() => {
     const location = JSON.parse(readRemoteConfigValue(REMOTE_CONFIG_KEY.SCAN_LOCATION));
@@ -29,12 +37,11 @@ const Scan = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-    <FlatList onPress= {createCheckInAlert}
+    <FlatList 
       data={users}
-      renderItem={({ item }) => (
-        <TouchableOpacity onPress= {createCheckInAlert}>
+      renderItem={({ item,index }) => (
+        <TouchableOpacity onPress= {() => checkInSuccessful(index)}>
           <Text style={styles.item}>{item.loc_name}</Text>
-          {/* <Text>User Name: {item.name}</Text> */}
         </TouchableOpacity>
       )}
     />
@@ -47,19 +54,25 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 40,
     paddingHorizontal: 20,
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    overflow: 'hidden'
+    backgroundColor: '#F2F4F7',
   },
   item: {
     flex: 1,
     marginHorizontal: 10,
     marginTop: 24,
     padding: 15,
-    backgroundColor: '#D7E9F7',
+    backgroundColor: '#76E6BE',
+    color: '#0D4930',
+    fontFamily: 'Inter',
+    fontWeight: 'bold',
     fontSize: 24,
+    borderRadius: 30,
     textAlign: 'center'
   },
+
+  list: {
+    borderRadius: 25
+  }
 });
 
 

@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@freakycoder/react-native-bounceable": ">= 0.2.4",
     "@paraboly/react-native-card": "^1.0.3",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-firebase/app": "^14.2.3",
@@ -19,8 +20,12 @@
     "@react-navigation/bottom-tabs": "^5.x",
     "@react-navigation/native": "^5.x",
     "@react-navigation/stack": "^5.x",
+    "moment": "^2.29.1",
     "react": "17.0.2",
     "react-native": "0.66.4",
+    "react-native-chart-kit": "^6.11.0",
+    "react-native-circular-chart": "^1.0.8",
+    "react-native-dynamic-vector-icons": ">= 1.1.4",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-linear-gradient": "^2.5.6",
@@ -31,10 +36,7 @@
     "react-native-status-bar-height": "^2.6.0",
     "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^9.0.0",
-    "rn-content-loader": "^0.0.6",
-    
-    "react-native-dynamic-vector-icons": ">= 1.1.4",
-    "@freakycoder/react-native-bounceable": ">= 0.2.4"
+    "rn-content-loader": "^0.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

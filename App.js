@@ -10,11 +10,13 @@ import React, {useEffect} from 'react';
 
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
+import {store} from './src/redux/store';
+import {Provider} from 'react-redux';
 import AppContainer from './src/navigator/App';
 import BLEBackgroundService from './src/services/BackgroundBleService';
 import BackgroundTaskServices from './src/services/BackgroundTaskService';
 import {createChannel} from './src/services/NotificationService';
-import { initializeFirebaseRemoteConfig } from './src/utils/remoteConfig';
+import {initializeFirebaseRemoteConfig} from './src/utils/remoteConfig';
 
 const App = () => {
   useEffect(() => {
@@ -24,9 +26,11 @@ const App = () => {
     initializeFirebaseRemoteConfig();
   });
   return (
-    <PaperProvider>
-      <AppContainer />
-    </PaperProvider>
+    <Provider store={store}>
+      <PaperProvider>
+        <AppContainer />
+      </PaperProvider>
+    </Provider>
   );
 };
 const styles = StyleSheet.create({

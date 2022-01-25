@@ -19,6 +19,13 @@ import {color} from 'react-native-reanimated';
 
 const Home = props => {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
+  //This part of the code will retrieve all items from the checkIn store
+  //Check in store is in redux/store/checkIn
+  //You will need to use useSelector hook to get checkIn details
+  // state.checkIn - specifying which redux reducer yr referring to
+  // useDispatch will be used to execute function inside redux
+  //You can't simply call them as usual functions, it will not update the store nor screen
+  // So you need a useDispatch hook to execute them
   const {locations} = useSelector(state => state.checkIn);
   const dispatch = useDispatch();
   return (
@@ -36,16 +43,20 @@ const Home = props => {
         <ImageContainer scrollY={scrollY} />
         <BottomContainer scrollY={scrollY} imageHeight={450}>
           <View style={styles.column}>
-            <Card style={styles.checkOut}>
-              <Card.Content>
-                <Title>Checked in at BHEPA</Title>
-                <Paragraph>Date: </Paragraph>
-                <Paragraph>Time: </Paragraph>
-              </Card.Content>
-              <Card.Actions>
-                <Button style={styles.button}>Check-Out</Button>
-              </Card.Actions>
-            </Card>
+            {locations.map(location => {
+              return (
+                <Card style={styles.checkOut}>
+                  <Card.Content>
+                    <Title>Checked in at {location.locationName}</Title>
+                    <Paragraph>Date: </Paragraph>
+                    <Paragraph>Time: </Paragraph>
+                  </Card.Content>
+                  <Card.Actions>
+                    <Button style={styles.button}>Check-Out</Button>
+                  </Card.Actions>
+                </Card>
+              );
+            })}
           </View>
 
           <View style={styles.row}>

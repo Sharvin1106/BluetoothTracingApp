@@ -9,17 +9,27 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {getAllLocations} from '../api';
-
+import {useSelector, useDispatch} from 'react-redux';
+import {checkInLocation} from '../redux/checkIn';
 
 const Scan = ({navigation}) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [users, setUsers] = useState([]); // Initial empty array of users
-
+  const {locations} = useSelector(state => state.checkIn);
+  const dispatch = useDispatch();
   const createCheckInAlert = () =>
     Alert.alert(
       'Successfully Checked-In',
       'Location : \r\nDate : \r\nTime : ',
-      [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            dispatch(checkInLocation({locationName: 'Tekun'}));
+            console.log('OK Pressed');
+          },
+        },
+      ],
     );
   const getLocationDetails = useCallback(async () => {
     const locations = await getAllLocations();

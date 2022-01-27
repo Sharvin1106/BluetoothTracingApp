@@ -1,103 +1,155 @@
-import React, { useState } from 'react';
-import { Alert, Text, Animated, SafeAreaView, StatusBar, StyleSheet, View, Platform } from 'react-native';
-import { deviceHeight } from '../helpers/constants';
-import { deviceWidth } from '../helpers/constants';
+import React, {useState} from 'react';
+import {
+  Alert,
+  Text,
+  Animated,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+  Platform,
+} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {deviceHeight} from '../helpers/constants';
+import {deviceWidth} from '../helpers/constants';
 import BottomContainer from '../components/dashboard';
 import ImageContainer from '../components/topContainer';
-// import { LoadingAtom } from '../components/loadingAtom';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-// import { color } from 'react-native-reanimated';
-import { ProgressChart } from "react-native-chart-kit";
-import { DonutChart } from "react-native-circular-chart";
+import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {Avatar, Button, Card, Title, Paragraph} from 'react-native-paper';
+import {ProgressChart} from 'react-native-chart-kit';
+import axios from 'axios';
 
-const Home = (props) => {
-
+const Home = props => {
   const data = {
-    labels: ["Apple", "Banana", "Cherry"], // optional
-    data: [0.2, 0.5, 0.8]
+    labels: ['Apple', 'Banana', 'Cherry'], // optional
+    data: [0.2, 0.5, 0.8],
   };
 
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
+  //This part of the code will retrieve all items from the checkIn store
+  //Check in store is in redux/store/checkIn
+  //You will need to use useSelector hook to get checkIn details
+  // state.checkIn - specifying which redux reducer yr referring to
+  // useDispatch will be used to execute function inside redux
+  //You can't simply call them as usual functions, it will not update the store nor screen
+  // So you need a useDispatch hook to execute them
+  const {locations} = useSelector(state => state.checkIn);
+  const dispatch = useDispatch();
+  var size = locations.length;
+  console.log(size);
   return (
     <View style={[styles.container]}>
-      <StatusBar barStyle='light-content' backgroundColor='transparent' translucent={true} />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent={true}
+      />
       <SafeAreaView>
-        <View style={{ height: Platform.OS === 'android' ? getStatusBarHeight() : 0 }}>
-        </View>
-        <ImageContainer
-          scrollY={scrollY}
-        />
-        <BottomContainer
-          scrollY={scrollY}
-          imageHeight={450}
-        >
+        <View
+          style={{
+            height: Platform.OS === 'android' ? getStatusBarHeight() : 0,
+          }}></View>
+        <ImageContainer scrollY={scrollY} />
+        <BottomContainer scrollY={scrollY} imageHeight={450}>
           <View style={styles.column}>
-            <Card style={styles.checkOut}>
-                <Card.Content>
-                  <Title>Last checked in at BHEPA</Title>
-                  <Paragraph>Date: </Paragraph>
-                  <Paragraph>Time: </Paragraph>
-                </Card.Content>
-                <Card.Actions>
-                  <Button onPress={() => Alert.alert('Simple Button pressed')} style={styles.button}>Check-Out</Button>
-                </Card.Actions>
-              </Card>
+            {locations.map((location, i) => {
+              console.log(location.checkInObj.loc);
+              if (i == size - 1)
+                return (
+                  <Card style={styles.checkOut}>
+                    <Card.Content>
+                      <Title style={styles.paragraph}>
+                        Checked in at {location.checkInObj.loc}
+                      </Title>
+                      <Paragraph style={styles.paragraph2}>
+                        Date: {location.checkInObj.date}
+                      </Paragraph>
+                      <Paragraph style={styles.paragraph2}>
+                        Time: {location.checkInObj.time}
+                      </Paragraph>
+                    </Card.Content>
+                    <Card.Actions>
+                      <Button
+                        onPress={() =>
+                          axios.post(
+                            'https://jom-trace-backend.herokuapp.com/checkOut',
+                            {
+                              location: location.checkInObj.id,
+                            },
+                            {
+                              headers: {
+                                'Content-Type': 'application/json',
+                                //other header fields
+                              },
+                            },
+                          )
+                        }
+                        style={styles.button}>
+                        Check-Out
+                      </Button>
+                    </Card.Actions>
+                  </Card>
+                );
+            })}
           </View>
-              
-              <View style={styles.row}>
-                <View style={styles.Tracker}>
-                <Card style={{borderRadius: 40,}}>
-                  <Card.Content >
-                    <Title>Hotspot Tracker</Title>
-                    <Text style={styles.stats}>88</Text>
-                    <Paragraph style={styles.paragraph}>hotspot location have been visited in the last 14 days.</Paragraph>
-                  </Card.Content>
-                </Card>
-                </View>
-                
-                <View style={{flex:0.1}}/>
 
-                <View style={styles.riskEst}>
-                <Card style={{borderRadius: 40,}}>
-                  <Card.Content>
-                    <Title>Risk Estimation</Title>
-                    <Text style={styles.stats}>83%</Text>
-                    <Paragraph style={styles.paragraph}>You’re less likely exposed to Covid-19. Stay safe!</Paragraph>
-                  </Card.Content>
-                </Card>
-                </View>
-                </View>
-            
-            <View style={styles.row}>
+          <View style={styles.row}>
+            <View style={styles.Tracker}>
+              <Card style={{borderRadius: 40}}>
+                <Card.Content>
+                  <Title>Hotspot Tracker</Title>
+                  <Text style={styles.stats}>88</Text>
+                  <Paragraph style={styles.paragraph}>
+                    hotspot location have been visited in the last 14 days.
+                  </Paragraph>
+                </Card.Content>
+              </Card>
+            </View>
+
+            <View style={{flex: 0.1}} />
+
+            <View style={styles.riskEst}>
+              <Card style={{borderRadius: 40}}>
+                <Card.Content>
+                  <Title>Risk Estimation</Title>
+                  <Text style={styles.stats}>83%</Text>
+                  <Paragraph style={styles.paragraph}>
+                    You’re less likely exposed to Covid-19. Stay safe!
+                  </Paragraph>
+                </Card.Content>
+              </Card>
+            </View>
+          </View>
+
+          <View style={styles.row}>
             <View style={styles.seveReport}>
-            <Card style={{borderRadius: 40,}}>
-                  <Card.Content>
-                    <Title>Severity Report</Title>
-                  </Card.Content>
-                  <ProgressChart
-                    data={data}
-                    width={ deviceWidth - 30 }
-                    height={220}
-                    chartConfig={{
-                      //backgroundColor: '#fff',
-                      backgroundGradientFrom: '#FFF',
-                      backgroundGradientTo: '#FFF5',
-                      //decimalPlaces: 2,
-                      color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
-                    }}
-                    style= {{
-                      borderRadius: 40,
-                    }}
-                  />
-                </Card>
-                </View> 
-              </View>
+              <Card style={{borderRadius: 40}}>
+                <Card.Content>
+                  <Title>Severity Report</Title>
+                </Card.Content>
+                <ProgressChart
+                  data={data}
+                  width={deviceWidth - 30}
+                  height={220}
+                  chartConfig={{
+                    //backgroundColor: '#fff',
+                    backgroundGradientFrom: '#FFF',
+                    backgroundGradientTo: '#FFF5',
+                    //decimalPlaces: 2,
+                    color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                  }}
+                  style={{
+                    borderRadius: 40,
+                  }}
+                />
+              </Card>
+            </View>
+          </View>
         </BottomContainer>
       </SafeAreaView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -107,7 +159,7 @@ const styles = StyleSheet.create({
     height: deviceHeight,
     alignContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   checkOut: {
@@ -115,7 +167,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: '5%',
     alignItems: 'flex-start',
     borderRadius: 40,
-
+    shadowColor: '#3E4248',
+    elevation: 20,
   },
 
   Tracker: {
@@ -124,15 +177,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 40,
     flex: 2,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4.84,
-
-    elevation: 5,
+    shadowColor: '#3E4248',
+    elevation: 20,
   },
 
   riskEst: {
@@ -141,6 +187,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 40,
     flex: 2,
+    shadowColor: '#3E4248',
+    elevation: 20,
   },
 
   seveReport: {
@@ -149,6 +197,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     borderRadius: 40,
     flex: 2,
+    shadowColor: '#3E4248',
+    elevation: 20,
   },
 
   column: {
@@ -164,31 +214,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    padding:10,
+    padding: 10,
     marginBottom: '5%',
-    
-    
-},
+  },
 
-stats: {
-  fontFamily: 'Inter',
-  fontWeight: 'bold',
-  fontSize: 64,
-  textAlign: 'center',
-  color: '#FF6B6B'
-},
+  stats: {
+    fontFamily: 'Inter',
+    fontWeight: 'bold',
+    fontSize: 64,
+    textAlign: 'center',
+    color: '#FF6B6B',
+  },
 
-paragraph: {
-  textAlign: 'center',
-},
+  paragraph: {
+    textAlign: 'center',
+  },
 
-button: {
-  backgroundColor: '#76E6BE',
-  color: '#0D4930',
-  alignItems: 'center',
-  
-},
+  paragraph2: {
+    marginTop: '1%',
+    paddingTop: '5%',
+    fontSize: 20,
+    fontFamily: 'SF Pro Text',
+    fontWeight: 'bold',
+    color: '#0D4930',
+  },
 
-})
+  button: {
+    backgroundColor: '#76E6BE',
+    borderRadius: 25,
+    padding: '5%',
+    paddingVertical: '2%',
+  },
+});
 
 export default Home;

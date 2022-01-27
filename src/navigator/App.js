@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import SignUp from '../screens/SignUp';
+import Home from '../screens/Home';
 import Tabs from './Tabs';
 import {getUser} from '../utils/Auth';
 
@@ -23,7 +24,7 @@ const App = () => {
           headerShown: false,
         }}>
         {getUser() ? (
-          <Stack.Screen name="Home" component={Tabs} />
+          <Stack.Screen name="Main" component={Tabs} />
         ) : (
           <Stack.Screen name="SignUp" component={SignUp} />
         )}

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 import {onGoogleButtonPress} from '../utils/Auth';
@@ -27,8 +27,7 @@ const SignUp = ({navigation}) => {
               const createUser = await createUser(auth.user.uid);
               storeData(ASYNC_STORAGE_KEY.USER_UUID, createUser);
             } else {
-              const user = 
-              storeData(ASYNC_STORAGE_KEY.USER_UUID, createUser);
+              const user = storeData(ASYNC_STORAGE_KEY.USER_UUID, createUser);
             }
           }}
         />

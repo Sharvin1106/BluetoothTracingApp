@@ -10,11 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@freakycoder/react-native-bounceable": ">= 0.2.4",
-=======
     "@react-native-async-storage/async-storage": "^1.15.15",
->>>>>>> be0646f73e5bc6e30a04ed3a0e25314054f6a9e5
     "@paraboly/react-native-card": "^1.0.3",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-firebase/app": "^14.2.3",
@@ -24,20 +20,15 @@
     "@react-navigation/bottom-tabs": "^5.x",
     "@react-navigation/native": "^5.x",
     "@react-navigation/stack": "^5.x",
-<<<<<<< HEAD
     "moment": "^2.29.1",
     "react": "17.0.2",
     "react-native": "0.66.4",
     "react-native-chart-kit": "^6.11.0",
     "react-native-circular-chart": "^1.0.8",
     "react-native-dynamic-vector-icons": ">= 1.1.4",
-=======
     "axios": "^0.25.0",
-    "react": "17.0.2",
-    "react-native": "0.66.4",
     "react-native-background-fetch": "^4.0.4",
     "react-native-ble-advertiser": "^0.0.16",
->>>>>>> be0646f73e5bc6e30a04ed3a0e25314054f6a9e5
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-linear-gradient": "^2.5.6",

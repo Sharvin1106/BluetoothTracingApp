@@ -10,10 +10,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
-    "@freakycoder/react-native-bounceable": ">= 0.2.4",
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
     "@paraboly/react-native-card": "^1.0.3",
     "@react-native-async-storage/async-storage": "^1.15.15",
     "@react-native-community/masked-view": "^0.1.11",
@@ -31,11 +27,8 @@
     "react-native": "0.66.4",
     "react-native-background-fetch": "^4.0.4",
     "react-native-ble-advertiser": "^0.0.16",
-<<<<<<< HEAD
     "react-native-chart-kit": "^6.11.0",
     "react-native-circular-chart": "^1.0.8",
-=======
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
     "react-native-dynamic-vector-icons": ">= 1.1.4",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
@@ -49,10 +42,7 @@
     "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^9.0.0",
     "react-redux": "^7.2.6",
-<<<<<<< HEAD
     "redux-persist": "^6.0.0",
-=======
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
     "rn-content-loader": "^0.0.6"
   },
   "devDependencies": {

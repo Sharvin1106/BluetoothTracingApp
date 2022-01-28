@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
 import {
-<<<<<<< HEAD
   Alert,
-=======
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
   Text,
   Animated,
   SafeAreaView,
@@ -14,7 +11,6 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {deviceHeight} from '../helpers/constants';
-<<<<<<< HEAD
 import {deviceWidth} from '../helpers/constants';
 import BottomContainer from '../components/dashboard';
 import ImageContainer from '../components/topContainer';
@@ -29,16 +25,6 @@ const Home = props => {
     data: [0.2, 0.5, 0.8],
   };
 
-=======
-import BottomContainer from '../components/dashboard';
-import ImageContainer from '../components/topContainer';
-import {LoadingAtom} from '../components/loadingAtom';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {Avatar, Button, Card, Title, Paragraph} from 'react-native-paper';
-import {color} from 'react-native-reanimated';
-
-const Home = props => {
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   //This part of the code will retrieve all items from the checkIn store
   //Check in store is in redux/store/checkIn
@@ -49,11 +35,8 @@ const Home = props => {
   // So you need a useDispatch hook to execute them
   const {locations} = useSelector(state => state.checkIn);
   const dispatch = useDispatch();
-<<<<<<< HEAD
   var size = locations.length;
   console.log(size);
-=======
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
   return (
     <View style={[styles.container]}>
       <StatusBar
@@ -69,7 +52,6 @@ const Home = props => {
         <ImageContainer scrollY={scrollY} />
         <BottomContainer scrollY={scrollY} imageHeight={450}>
           <View style={styles.column}>
-<<<<<<< HEAD
             {locations.map((location, i) => {
               console.log(location.checkInObj.loc);
               if (i == size - 1)
@@ -108,21 +90,6 @@ const Home = props => {
                     </Card.Actions>
                   </Card>
                 );
-=======
-            {locations.map(location => {
-              return (
-                <Card style={styles.checkOut}>
-                  <Card.Content>
-                    <Title>Checked in at {location.locationName}</Title>
-                    <Paragraph>Date: </Paragraph>
-                    <Paragraph>Time: </Paragraph>
-                  </Card.Content>
-                  <Card.Actions>
-                    <Button style={styles.button}>Check-Out</Button>
-                  </Card.Actions>
-                </Card>
-              );
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
             })}
           </View>
 
@@ -135,7 +102,6 @@ const Home = props => {
                   <Paragraph style={styles.paragraph}>
                     hotspot location have been visited in the last 14 days.
                   </Paragraph>
-<<<<<<< HEAD
                 </Card.Content>
               </Card>
             </View>
@@ -153,25 +119,6 @@ const Home = props => {
                 </Card.Content>
               </Card>
             </View>
-=======
-                </Card.Content>
-              </Card>
-            </View>
-
-            <View style={{flex: 0.1}} />
-
-            <View style={styles.riskEst}>
-              <Card style={{borderRadius: 40}}>
-                <Card.Content>
-                  <Title>Risk Estimation</Title>
-                  <Text style={styles.stats}>83%</Text>
-                  <Paragraph style={styles.paragraph}>
-                    You’re less likely exposed to Covid-19. Stay safe!
-                  </Paragraph>
-                </Card.Content>
-              </Card>
-            </View>
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
           </View>
 
           <View style={styles.row}>
@@ -180,7 +127,6 @@ const Home = props => {
                 <Card.Content>
                   <Title>Severity Report</Title>
                 </Card.Content>
-<<<<<<< HEAD
                 <ProgressChart
                   data={data}
                   width={deviceWidth - 30}
@@ -196,11 +142,6 @@ const Home = props => {
                     borderRadius: 40,
                   }}
                 />
-=======
-                <Card.Actions>
-                  <Button>Check-Out</Button>
-                </Card.Actions>
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
               </Card>
             </View>
           </View>
@@ -226,11 +167,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: '5%',
     alignItems: 'flex-start',
     borderRadius: 40,
-<<<<<<< HEAD
     shadowColor: '#3E4248',
     elevation: 20,
-=======
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
   },
 
   Tracker: {
@@ -292,7 +230,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-<<<<<<< HEAD
   paragraph2: {
     marginTop: '1%',
     paddingTop: '5%',
@@ -307,12 +244,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     padding: '5%',
     paddingVertical: '2%',
-=======
-  button: {
-    backgroundColor: '#76E6BE',
-    color: '#0D4930',
-    alignItems: 'center',
->>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
   },
 });
 

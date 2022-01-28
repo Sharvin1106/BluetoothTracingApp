@@ -1,50 +1,150 @@
-import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
-import {onGoogleButtonPress} from '../utils/Auth';
-import {createUser} from '../api';
-import {ASYNC_STORAGE_KEY, storeData} from '../utils/storage';
+import {useNavigation} from '@react-navigation/core';
+import React, {useEffect, useState} from 'react';
+import {
+  Button,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import auth from '@react-native-firebase/auth';
 
-const SignUp = ({navigation}) => {
-  return (
-    <View style={styles.container}>
-      <Text style={{fontSize: 25, marginTop: 20}}>Welcome! </Text>
-      <Text style={{fontSize: 16, color: 'gray', marginTop: 20}}>
-        Sign in to continue
-      </Text>
-      <Image
-        style={{width: '100%', height: 300}}
-        source={require('../../assets/images/signup.png')}
-        resizeMode="contain"
-      />
-      <View style={styles.messageContainer}>
-        <Text>Get Yourself Protected</Text>
-        <Text>Please sign in using Google</Text>
-        <GoogleSigninButton
-          onPress={async () => {
-            const auth = await onGoogleButtonPress();
-            if (auth?.additionalUserInfo.isNewUser) {
-              const createUser = await createUser(auth.user.uid);
-              storeData(ASYNC_STORAGE_KEY.USER_UUID, createUser);
-            } else {
-              const user = 
-              storeData(ASYNC_STORAGE_KEY.USER_UUID, createUser);
-            }
-          }}
-        />
+const SignUp = () => {
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+  const navigation = useNavigation();
+
+  const handleSignUp = () => {
+    auth()
+      .createUserWithEmailAndPassword(
+        'jane.doe@example.com',
+        'SuperSecretPassword!',
+      )
+      .then(() => {
+        console.log('User account created & signed in!');
+        navigation.replace('Home');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  // const handleSignUp = () => {
+  //   auth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then(userCredentials => {
+  //       const user = userCredentials.user;
+  //       console.log('Registered with:', user.email);
+  //     })
+  //     .catch(error => alert(error.message));
+  // };
+
+  // const handleLogin = () => {
+  //   auth
+  //     .signInWithEmailAndPassword(email, password)
+  //     .then(userCredentials => {
+  //       const user = userCredentials.user;
+  //       console.log('Logged in with:', user.email);
+  //     })
+  //     .catch(error => alert(error.message));
+  // };
+
+  //return (
+  //     <KeyboardAvoidingView style={styles.container} behavior="padding">
+  //       <View style={styles.inputContainer}>
+  //         <TextInput
+  //           placeholder="Email"
+  //           value={email}
+  //           onChangeText={text => setEmail(text)}
+  //           style={styles.input}
+  //         />
+  //         <TextInput
+  //           placeholder="Password"
+  //           value={password}
+  //           onChangeText={text => setPassword(text)}
+  //           style={styles.input}
+  //           secureTextEntry
+  //         />
+  //       </View>
+
+  //       <View style={styles.buttonContainer}>
+  //         <TouchableOpacity onPress={handleLogin} style={styles.button}>
+  //           <Text style={styles.buttonText}>Login</Text>
+  //         </TouchableOpacity>
+  //         <TouchableOpacity
+  //           onPress={handleSignUp}
+  //           style={[styles.button, styles.buttonOutline]}>
+  //           <Text style={styles.buttonOutlineText}>Register</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     </KeyboardAvoidingView>
+
+  if (initializing) return null;
+
+  if (!user) {
+    return (
+      <View>
+        <Text>Login</Text>
+        <TouchableOpacity onPress={handleSignUp}>
+          <Text>Sign-Up</Text>
+        </TouchableOpacity>
       </View>
-    </View>
-  );
+    );
+  }
+  //RETURN LOADING COMPONENT
+  navigation.replace('Home');
+  return null;
+  // return (
+  //   <View>
+  //     <Text>Welcome {user.email}</Text>
+  //   </View>
+  // );
 };
+
+export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
-    padding: 20,
-  },
-  messageContainer: {
+    justifyContent: 'center',
     alignItems: 'center',
   },
+  button: {
+    backgroundColor: '#0782F9',
+    width: '60%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 40,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 16,
+  },
 });
-export default SignUp;

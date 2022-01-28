@@ -12,7 +12,9 @@ export const checkInSlice = createSlice({
       state.locations.push(action.payload);
     },
     checkOutLocation: (state, action) => {
-      state.locations = state.locations.filter(item => item.id !== action.payload);
+      state.locations = state.locations.filter(
+        item => item.id !== action.payload,
+      );
     },
   },
 });

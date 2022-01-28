@@ -5,6 +5,8 @@ import SignUp from '../screens/SignUp';
 import Home from '../screens/Home';
 import Tabs from './Tabs';
 import {getUser} from '../utils/Auth';
+import {useSelector, useDispatch} from 'react-redux';
+import {authenticateUser} from '../redux/auth';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +19,7 @@ const theme = {
 };
 
 const App = () => {
+  const {auth} = useSelector(state => state.auth);
   return (
     <NavigationContainer>
       <Stack.Navigator>

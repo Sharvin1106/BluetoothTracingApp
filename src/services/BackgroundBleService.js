@@ -2,6 +2,7 @@ import BLEAdvertiser from 'react-native-ble-advertiser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NativeEventEmitter, NativeModules} from 'react-native';
 import PushNotification from 'react-native-push-notification';
+import {storeData} from '../utils/storage';
 //import UUIDGenerator from 'react-native-uuid-generator';
 
 export default class BLEBackgroundService {
@@ -66,12 +67,7 @@ export default class BLEBackgroundService {
       });
   }
 
-  static isValidUUID(uuid) {
-    if (!uuid) return false;
-    return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{10}00$/.test(
-      uuid,
-    );
-  }
+  
 
   static addDevice(_uuid, _name, _rssi, _date) {
     let lastSeenInMilliseconds = this.cashedLastSeen[_uuid];
@@ -94,7 +90,7 @@ export default class BLEBackgroundService {
       date: _date.toISOString(),
     };
 
-    AsyncStorage.setItem(
+    storeData(
       'CONTACT' + _uuid + _date.toISOString(),
       JSON.stringify(contactData),
     );
@@ -102,10 +98,15 @@ export default class BLEBackgroundService {
     this.emitNewDevice(device);
   }
 
-  //   static setServicesUUID(deviceSerial) {
-  //     let myUUID = toUUID(a2hex(deviceSerial));
-  //     AsyncStorage.setItem(MY_UUID, myUUID);
-  //   }
+  static checkDistance(_rssi) {
+    if (Math.pow(10, (-69 - _rssi) / (10 * 2))) {
+      PushNotification.localNotification({
+        channelId: 'test-channel',
+        title: 'Distance Alert',
+        message: 'Please Maintain Your Distance',
+      });
+    }
+  }
 
   static enableBT() {
     BLEAdvertiser.enableAdapter();
@@ -160,6 +161,7 @@ export default class BLEBackgroundService {
                 event.rssi,
                 new Date(),
               );
+              this.checkDistance(event.rssi);
             }
           }
         }
@@ -178,10 +180,6 @@ export default class BLEBackgroundService {
       },
     );
 
-    // UUIDGenerator.getRandomUUID((newUid) => {
-    //   this.uuid = newUid.slice(0, -4) + 'ECAE';
-    // });
-    // console.log(this.uuid);
     console.log(
       '[BLEService]',
       '6ed2fa25-b412-4ad3-98df-d181487586c8',

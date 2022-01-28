@@ -18,16 +18,18 @@ const theme = {
 
 const App = () => {
   return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        {getUser() ? (
-          <Stack.Screen name="Main" component={Tabs} />
-        ) : (
-          <Stack.Screen name="SignUp" component={SignUp} />
-        )}
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="SignUp"
+          component={SignUp}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Home"
+          component={Tabs}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

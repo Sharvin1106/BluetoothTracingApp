@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/Ionicons';
 import Home from '../screens/Home';
 import Scan from '../screens/Scan';
 import Profile from '../screens/Profile';
-
+import Bluetooth from '../screens/Bluetooth';
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -38,6 +38,22 @@ const Tabs = () => {
           ),
         }}
       />
+
+      <Tab.Screen
+        name="Bluetooth"
+        component={Bluetooth}
+        options={{
+          tabBarLabel: 'Bluetooth',
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons
+              name="person-sharp"
+              color={color}
+              size={30}
+            />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name="Profile"
         component={Profile}

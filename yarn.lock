@@ -1292,6 +1292,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-14.2.3.tgz#815015e1d4bda89ce659ceb734196b08dc622fa0"
   integrity sha512-/o2O6qHuYzXXT98nytj23wD8L7Y9G/I0C45AkbG7kbQ8zuSHlinj+tPVVWND/2JKuTfq5I3kFsyZHYN5wniQIQ==
 
+"@react-native-firebase/messaging@^14.2.4":
+  version "14.2.4"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-14.2.4.tgz#2e8d69f5225bb9bac83745e4e8a3804c30338456"
+  integrity sha512-0E8KnY9kN5TawgsbLZPwvc0iU7b05JWdSwn7cW/5KL3OgML7+ubmls8vWs/wsUFmn0aLX70Lb32oEtDwn75MMw==
+
 "@react-native-firebase/remote-config@^14.2.3":
   version "14.2.3"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/remote-config/-/remote-config-14.2.3.tgz#d1875996f795211b429f3708ef5c95b32dbcb544"

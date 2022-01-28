@@ -4,6 +4,8 @@ import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import SignUp from '../screens/SignUp';
 import Tabs from './Tabs';
 import {getUser} from '../utils/Auth';
+import {useSelector, useDispatch} from 'react-redux';
+import {authenticateUser} from '../redux/auth';
 
 const Stack = createStackNavigator();
 
@@ -16,13 +18,14 @@ const theme = {
 };
 
 const App = () => {
+  const {auth} = useSelector(state => state.auth);
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}>
-        {getUser() ? (
+        {auth ? (
           <Stack.Screen name="Home" component={Tabs} />
         ) : (
           <Stack.Screen name="SignUp" component={SignUp} />

@@ -19,15 +19,23 @@ const Scan = ({navigation}) => {
   const [users, setUsers] = useState([]); // Initial empty array of users
   const {locations} = useSelector(state => state.checkIn);
   const dispatch = useDispatch();
+<<<<<<< HEAD
 
   const createCheckInAlert = (date, time, loc) =>
     Alert.alert(
       'Successfully Checked-In at ' + loc,
       'Date : ' + date + '\r\nTime : ' + time,
+=======
+  const createCheckInAlert = () =>
+    Alert.alert(
+      'Successfully Checked-In',
+      'Location : \r\nDate : \r\nTime : ',
+>>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
       [
         {
           text: 'OK',
           onPress: () => {
+<<<<<<< HEAD
             console.log('ok');
           },
         },
@@ -57,6 +65,13 @@ const Scan = ({navigation}) => {
           //other header fields
         },
       },
+=======
+            dispatch(checkInLocation({locationName: 'Tekun'}));
+            console.log('OK Pressed');
+          },
+        },
+      ],
+>>>>>>> b279897a8eefa51fe97e7718c4ffc5828d0deed9
     );
     dispatch(checkInLocation({checkInObj, index}));
     getLocationDetails();

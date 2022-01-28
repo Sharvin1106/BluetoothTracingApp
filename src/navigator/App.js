@@ -19,7 +19,6 @@ const theme = {
 };
 
 const App = () => {
-  const {auth} = useSelector(state => state.auth);
   return (
     <NavigationContainer>
       <Stack.Navigator>

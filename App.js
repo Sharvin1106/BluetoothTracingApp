@@ -19,11 +19,9 @@ import BackgroundTaskServices from './src/services/BackgroundTaskService';
 import {createChannel} from './src/services/NotificationService';
 import {initializeFirebaseRemoteConfig} from './src/utils/remoteConfig';
 import {getData, storeData} from './src/utils/storage';
-import {authenticateUser} from './src/redux/auth';
 import {getUser} from './src/utils/Auth';
 
 const App = () => {
-  const dispatch = useDispatch();
   const getFcmToken = async () => {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
@@ -47,7 +45,7 @@ const App = () => {
 
   useEffect(() => {
     BackgroundTaskServices.start();
-   
+
     BLEBackgroundService.init();
     createChannel();
     initializeFirebaseRemoteConfig();

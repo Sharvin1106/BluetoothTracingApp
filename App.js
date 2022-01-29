@@ -19,11 +19,11 @@ import BackgroundTaskServices from './src/services/BackgroundTaskService';
 import {createChannel} from './src/services/NotificationService';
 import {initializeFirebaseRemoteConfig} from './src/utils/remoteConfig';
 import {getData, storeData} from './src/utils/storage';
-import {authenticateUser} from './src/redux/auth';
+// import {authenticateUser} from './src/redux/auth';
 import {getUser} from './src/utils/Auth';
 
 const App = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const getFcmToken = async () => {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
@@ -47,7 +47,7 @@ const App = () => {
 
   useEffect(() => {
     BackgroundTaskServices.start();
-   
+    storeData('my_bluetooth_uuid', '6ed2fa25-b412-4ad3-98df-d181487586c8');
     BLEBackgroundService.init();
     createChannel();
     initializeFirebaseRemoteConfig();

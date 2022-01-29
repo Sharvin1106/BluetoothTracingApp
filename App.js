@@ -48,6 +48,7 @@ const App = () => {
   useEffect(() => {
     BackgroundTaskServices.start();
     storeData('my_bluetooth_uuid', '6ed2fa25-b412-4ad3-98df-d181487586c8');
+    //console.log(await getData('my_bluetooth_uuid'));
     BLEBackgroundService.init();
     createChannel();
     initializeFirebaseRemoteConfig();

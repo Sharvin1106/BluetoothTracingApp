@@ -106,8 +106,12 @@ export default class BLEBackgroundService {
     }
   }
 
-  static getMyUUID() {
-    return getData('my_bluetooth_uuid');
+  static async getMyUUID() {
+    return await AsyncStorage.getItem('my_bluetooth_uuid')
+      .then(id => {
+        return id;
+      })
+      .catch(err => console.log(err));
   }
 
   static enableBT() {
@@ -137,7 +141,7 @@ export default class BLEBackgroundService {
     }
   }
 
-  static start() {
+  static async start() {
     console.log('[BLEService] Starting BLE service');
     PushNotification.localNotification({
       channelId: 'test-channel',
@@ -181,24 +185,27 @@ export default class BLEBackgroundService {
         }
       },
     );
+    try {
+      console.log('[BLEService]', await this.getMyUUID(), 'Starting Advertising');
+      BLEAdvertiser.broadcast(await this.getMyUUID(), [1, 0, 0, 0], {
+        advertiseMode: BLEAdvertiser.ADVERTISE_MODE_LOW_POWER,
+        txPowerLevel: BLEAdvertiser.ADVERTISE_TX_POWER_LOW,
+        connectable: false,
+        includeDeviceName: false,
+        includeTxPowerLevel: false,
+      })
+        .then(sucess => this.emitBroadcastingStatus('Started'))
+        .catch(error => this.emitBroadcastingStatus(error));
 
-    console.log('[BLEService]', this.getMyUUID(), 'Starting Advertising');
-    BLEAdvertiser.broadcast(this.getMyUUID(), [1, 0, 0, 0], {
-      advertiseMode: BLEAdvertiser.ADVERTISE_MODE_LOW_POWER,
-      txPowerLevel: BLEAdvertiser.ADVERTISE_TX_POWER_LOW,
-      connectable: false,
-      includeDeviceName: false,
-      includeTxPowerLevel: false,
-    })
-      .then(sucess => this.emitBroadcastingStatus('Started'))
-      .catch(error => this.emitBroadcastingStatus(error));
-
-    console.log('[BLEService]', this.getMyUUID(), 'Starting Scanner');
-    BLEAdvertiser.scan([1, 0, 0, 0], {
-      scanMode: BLEAdvertiser.SCAN_MODE_BALANCED,
-    })
-      .then(sucess => this.emitScanningStatus('Started'))
-      .catch(error => this.emitScanningStatus(error));
+      console.log('[BLEService]', await this.getMyUUID(), 'Starting Scanner');
+      BLEAdvertiser.scan([1, 0, 0, 0], {
+        scanMode: BLEAdvertiser.SCAN_MODE_BALANCED,
+      })
+        .then(sucess => this.emitScanningStatus('Started'))
+        .catch(error => this.emitScanningStatus(error));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   static stop() {

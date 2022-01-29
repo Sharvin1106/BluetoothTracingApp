@@ -92,7 +92,9 @@ const Scan = ({navigation}) => {
       <FlatList
         data={users}
         renderItem={({item, index}) => (
-          <TouchableOpacity onPress={() => checkInSuccessful(index)}>
+          <TouchableOpacity
+            key={index}
+            onPress={() => checkInSuccessful(index)}>
             <Text
               style={[
                 styles.item,

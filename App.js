@@ -19,6 +19,7 @@ import BackgroundTaskServices from './src/services/BackgroundTaskService';
 import {createChannel} from './src/services/NotificationService';
 import {initializeFirebaseRemoteConfig} from './src/utils/remoteConfig';
 import {getData, storeData} from './src/utils/storage';
+
 // import {authenticateUser} from './src/redux/auth';
 import {PermissionsAndroid} from 'react-native';
 import BLEAdvertiser from 'react-native-ble-advertiser';
@@ -26,6 +27,11 @@ import {getUser} from './src/utils/Auth';
 
 const App = () => {
   // const dispatch = useDispatch();
+
+import {getUser} from './src/utils/Auth';
+
+const App = () => {
+
   const getFcmToken = async () => {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
@@ -101,8 +107,10 @@ const App = () => {
   useEffect(() => {
     requestLocationPermission();
     BackgroundTaskServices.start();
+
     storeData('my_bluetooth_uuid', '87fbbbef-f4e0-4b71-af78-106cc5d078f9');
     //console.log(await getData('my_bluetooth_uuid'));
+
     BLEBackgroundService.init();
     BLEBackgroundService.start();
     createChannel();

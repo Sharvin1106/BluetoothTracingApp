@@ -1,6 +1,9 @@
 import BLEAdvertiser from 'react-native-ble-advertiser';
 import {NativeEventEmitter, NativeModules} from 'react-native';
 import PushNotification from 'react-native-push-notification';
+
+import {getData, storeData} from '../utils/storage';
+
 //import UUIDGenerator from 'react-native-uuid-generator';
 
 export default class BLEBackgroundService {
@@ -75,13 +78,6 @@ export default class BLEBackgroundService {
       });
   }
 
-  static isValidUUID(uuid) {
-    if (!uuid) return false;
-    return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{10}00$/.test(
-      uuid,
-    );
-  }
-
   static addDevice(_uuid, _name, _rssi, _date) {
     let lastSeenInMilliseconds = this.cachedLastSeen[_uuid];
     if (
@@ -103,12 +99,14 @@ export default class BLEBackgroundService {
       date: _date.toISOString(),
     };
 
+
     // AsyncStorage.setItem(
     //   'CONTACT' + _uuid + _date.toISOString(),
     //   JSON.stringify(contactData),
     // );
 
     this.cachedLastSeen[_uuid] = _date.getTime();
+
     this.emitNewDevice(device);
   }
 

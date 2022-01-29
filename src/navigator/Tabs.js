@@ -45,11 +45,7 @@ const Tabs = () => {
         options={{
           tabBarLabel: 'Bluetooth',
           tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons
-              name="person-sharp"
-              color={color}
-              size={30}
-            />
+            <MaterialCommunityIcons name="bluetooth" color={color} size={30} />
           ),
         }}
       />

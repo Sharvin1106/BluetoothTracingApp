@@ -82,9 +82,9 @@ const Scan = ({navigation}) => {
 
   getVisitorRange = v => {
     //console.log(v);
-    if (v > 50) return 2;
-    else if (v >= 25 && v <= 50) return 1;
-    else return 0;
+    if (v > 50) return styles.Hrisk;
+    else if (v >= 25 && v <= 50) return styles.Mrisk;
+    else return styles.Lrisk;
   };
 
   return (
@@ -95,19 +95,7 @@ const Scan = ({navigation}) => {
           <TouchableOpacity
             key={index}
             onPress={() => checkInSuccessful(index)}>
-            <Text
-              style={[
-                styles.item,
-                this.getVisitorRange(item.visitorsCount) == 0
-                  ? styles.Hrisk
-                  : styles.item,
-                this.getVisitorRange(item.visitorsCount) == 1
-                  ? styles.Mrisk
-                  : styles.item,
-                this.getVisitorRange(item.visitorsCount) == 2
-                  ? styles.Lrisk
-                  : styles.item,
-              ]}>
+            <Text style={[styles.item, getVisitorRange(item.visitorsCount)]}>
               {item.locationName + ' (' + item.visitorsCount + ')'}
             </Text>
           </TouchableOpacity>

@@ -23,7 +23,10 @@
     "@react-navigation/stack": "^5.x",
     "@reduxjs/toolkit": "^1.7.1",
     "axios": "^0.25.0",
+    "formik": "^2.2.9",
+    "i": "^0.3.7",
     "moment": "^2.29.1",
+    "npm": "^8.4.0",
     "react": "17.0.2",
     "react-native": "0.66.4",
     "react-native-background-fetch": "^4.0.4",
@@ -34,6 +37,7 @@
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-multiple-choice-picker": "^1.0.6",
     "react-native-paper": "^4.11.2",
     "react-native-push-notification": "^8.1.1",
     "react-native-reanimated": "^2.3.1",
@@ -44,7 +48,8 @@
     "react-native-vector-icons": "^9.0.0",
     "react-redux": "^7.2.6",
     "redux-persist": "^6.0.0",
-    "rn-content-loader": "^0.0.6"
+    "rn-content-loader": "^0.0.6",
+    "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

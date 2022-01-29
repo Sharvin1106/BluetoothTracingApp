@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useEffect, useState} from 'react';
 import {
-  Button,
+  Image,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
@@ -12,8 +12,8 @@ import {
 import auth from '@react-native-firebase/auth';
 
 const SignUp = () => {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -26,22 +26,31 @@ const SignUp = () => {
   }
   const navigation = useNavigation();
 
+  const handleSignin = () => {
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        console.log('Logged in with:', user.email);
+      })
+      .catch(error => alert('Account does not exist!'));
+  };
+
   const handleSignUp = () => {
     auth()
-      .createUserWithEmailAndPassword(
-        'jane.doe@example.com',
-        'SuperSecretPassword!',
-      )
+      .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
         navigation.replace('Home');
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
+          alert('That email address is already in use!');
           console.log('That email address is already in use!');
         }
 
         if (error.code === 'auth/invalid-email') {
+          alert('That email address is invalid!');
           console.log('That email address is invalid!');
         }
 
@@ -54,76 +63,51 @@ const SignUp = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  // const handleSignUp = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then(userCredentials => {
-  //       const user = userCredentials.user;
-  //       console.log('Registered with:', user.email);
-  //     })
-  //     .catch(error => alert(error.message));
-  // };
-
-  // const handleLogin = () => {
-  //   auth
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(userCredentials => {
-  //       const user = userCredentials.user;
-  //       console.log('Logged in with:', user.email);
-  //     })
-  //     .catch(error => alert(error.message));
-  // };
-
-  //return (
-  //     <KeyboardAvoidingView style={styles.container} behavior="padding">
-  //       <View style={styles.inputContainer}>
-  //         <TextInput
-  //           placeholder="Email"
-  //           value={email}
-  //           onChangeText={text => setEmail(text)}
-  //           style={styles.input}
-  //         />
-  //         <TextInput
-  //           placeholder="Password"
-  //           value={password}
-  //           onChangeText={text => setPassword(text)}
-  //           style={styles.input}
-  //           secureTextEntry
-  //         />
-  //       </View>
-
-  //       <View style={styles.buttonContainer}>
-  //         <TouchableOpacity onPress={handleLogin} style={styles.button}>
-  //           <Text style={styles.buttonText}>Login</Text>
-  //         </TouchableOpacity>
-  //         <TouchableOpacity
-  //           onPress={handleSignUp}
-  //           style={[styles.button, styles.buttonOutline]}>
-  //           <Text style={styles.buttonOutlineText}>Register</Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //     </KeyboardAvoidingView>
-
   if (initializing) return null;
 
   if (!user) {
     return (
-      <View>
-        <Text>Login</Text>
-        <TouchableOpacity onPress={handleSignUp}>
-          <Text>Sign-Up</Text>
-        </TouchableOpacity>
-      </View>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <Text style={styles.titleText}>JomTrace</Text>
+        <Image
+          style={{width: '100%', height: 300}}
+          source={require('../../assets/images/Sign-Up.png')}
+          resizeMode="contain"
+        />
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={text => setEmail(text)}
+            style={styles.input}
+          />
+
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={text => setPassword(text)}
+            style={styles.input}
+            secureTextEntry
+          />
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={handleSignin} style={styles.button}>
+            <Text style={styles.buttonText}>Log-In</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleSignUp}
+            style={[styles.button, styles.buttonOutline]}>
+            <Text style={styles.buttonOutlineText}>Register</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
   //RETURN LOADING COMPONENT
   navigation.replace('Home');
   return null;
-  // return (
-  //   <View>
-  //     <Text>Welcome {user.email}</Text>
-  //   </View>
-  // );
 };
 
 export default SignUp;
@@ -133,17 +117,56 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  inputContainer: {
+    width: '80%',
+  },
+
+  titleText: {
+    fontFamily: 'Inter',
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#0D4930',
+    top: '5%',
+    margin: 0,
+  },
+
+  input: {
+    backgroundColor: '#D5FFE3',
+    paddingHorizontal: 15,
+    paddingVertical: '4%',
+    borderRadius: 10,
+    marginTop: '5%',
+  },
+  buttonContainer: {
+    width: '60%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5,
+    marginBottom: '6%',
   },
   button: {
-    backgroundColor: '#0782F9',
-    width: '60%',
+    backgroundColor: '#1AEBA4',
+    width: '100%',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
-    marginTop: 40,
+    marginVertical: '8%',
+  },
+  buttonOutline: {
+    backgroundColor: 'white',
+    marginTop: 5,
+    borderColor: '#1AEBA4',
+    borderWidth: 2,
   },
   buttonText: {
     color: 'white',
+    fontWeight: '700',
+    fontSize: 16,
+  },
+  buttonOutlineText: {
+    color: '#1AEBA4',
     fontWeight: '700',
     fontSize: 16,
   },

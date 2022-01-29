@@ -1,8 +1,9 @@
 import BLEAdvertiser from 'react-native-ble-advertiser';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NativeEventEmitter, NativeModules} from 'react-native';
 import PushNotification from 'react-native-push-notification';
+
 import {getData, storeData} from '../utils/storage';
+
 //import UUIDGenerator from 'react-native-uuid-generator';
 
 export default class BLEBackgroundService {
@@ -14,6 +15,16 @@ export default class BLEBackgroundService {
   static uuid;
   static cachedLastSeen = {};
   static c1MIN = 1000 * 60;
+
+  static checkDistance(_rssi) {
+    if (Math.pow(10, (-69 - _rssi) / (10 * 13)) < 1.5) {
+      PushNotification.localNotification({
+        channelId: 'test-channel',
+        title: 'Distance Alert',
+        message: 'Please Maintain Your Distance',
+      });
+    }
+  }
 
   /**
    * If the app needs to update the screen at every new device.
@@ -68,7 +79,7 @@ export default class BLEBackgroundService {
   }
 
   static addDevice(_uuid, _name, _rssi, _date) {
-    let lastSeenInMilliseconds = this.cashedLastSeen[_uuid];
+    let lastSeenInMilliseconds = this.cachedLastSeen[_uuid];
     if (
       !lastSeenInMilliseconds ||
       _date.getTime() > lastSeenInMilliseconds + this.c1MIN
@@ -82,30 +93,27 @@ export default class BLEBackgroundService {
     };
 
     let contactData = {
-      uploader: '6ed2fa25-b412-4ad3-98df-d181487586c8',
+      uploader: '2d9609f4-8c49-4ab9-aafd-b513b2f9b9a2',
       _uuid,
       _rssi,
       date: _date.toISOString(),
     };
 
-    storeData(
-      'CONTACT' + _uuid + _date.toISOString(),
-      JSON.stringify(contactData),
-    );
-    console.log(getData('CONTACT' + _uuid + _date.toISOString()));
-    cashedLastSeen[_uuid] = _date.getTime();
+
+    // AsyncStorage.setItem(
+    //   'CONTACT' + _uuid + _date.toISOString(),
+    //   JSON.stringify(contactData),
+    // );
+
+    this.cachedLastSeen[_uuid] = _date.getTime();
+
     this.emitNewDevice(device);
   }
 
-  static checkDistance(_rssi) {
-    if (Math.pow(10, (-69 - _rssi) / (10 * 2))) {
-      PushNotification.localNotification({
-        channelId: 'test-channel',
-        title: 'Distance Alert',
-        message: 'Please Maintain Your Distance',
-      });
-    }
-  }
+  //   static setServicesUUID(deviceSerial) {
+  //     let myUUID = toUUID(a2hex(deviceSerial));
+  //     AsyncStorage.setItem(MY_UUID, myUUID);
+  //   }
 
   static enableBT() {
     BLEAdvertiser.enableAdapter();
@@ -136,11 +144,7 @@ export default class BLEBackgroundService {
 
   static start() {
     console.log('[BLEService] Starting BLE service');
-    PushNotification.localNotification({
-      channelId: 'test-channel',
-      title: 'JomTrace',
-      message: 'You are being secured bro',
-    });
+
     //cached_my_uuid = null;
     this.clearListener();
 
@@ -152,8 +156,8 @@ export default class BLEBackgroundService {
       event => {
         if (event.serviceUuids) {
           for (let i = 0; i < event.serviceUuids.length; i++) {
-            if (this.isValidUUID(event.serviceUuids[i])) {
-              // console.log("[BLEService]", "onDeviceFound", event);
+            if (event.serviceUuids[i]) {
+              console.log('[BLEService]', 'onDeviceFound', event);
               this.addDevice(
                 event.serviceUuids[i],
                 event.deviceName,
@@ -179,13 +183,17 @@ export default class BLEBackgroundService {
       },
     );
 
+    // UUIDGenerator.getRandomUUID((newUid) => {
+    //   this.uuid = newUid.slice(0, -4) + 'ECAE';
+    // });
+    // console.log(this.uuid);
     console.log(
       '[BLEService]',
-      '6ed2fa25-b412-4ad3-98df-d181487586c8',
+      '2d9609f4-8c49-4ab9-aafd-b513b2f9b9a2',
       'Starting Advertising',
     );
     BLEAdvertiser.broadcast(
-      '6ed2fa25-b412-4ad3-98df-d181487586c8',
+      '2d9609f4-8c49-4ab9-aafd-b513b2f9b9a2',
       [1, 0, 0, 0],
       {
         advertiseMode: BLEAdvertiser.ADVERTISE_MODE_LOW_POWER,
@@ -200,7 +208,7 @@ export default class BLEBackgroundService {
 
     console.log(
       '[BLEService]',
-      '6ed2fa25-b412-4ad3-98df-d181487586c8',
+      '2d9609f4-8c49-4ab9-aafd-b513b2f9b9a2',
       'Starting Scanner',
     );
     BLEAdvertiser.scan([1, 0, 0, 0], {

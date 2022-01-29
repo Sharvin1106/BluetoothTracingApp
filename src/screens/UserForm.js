@@ -22,12 +22,13 @@ export default function UserForm() {
 
             <View>
               <RadioButton
-                value="first"
+                value="Yes?"
                 status={checked === 'Yes' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked('Yes')}
+                onPress={() => props.handleChange('Vaccinated')}
+                value={props.values.Vacinnated}
               />
               <RadioButton
-                value="second"
+                value="No"
                 status={checked === 'No' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked('No')}
               />

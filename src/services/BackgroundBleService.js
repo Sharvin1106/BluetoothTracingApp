@@ -1,8 +1,6 @@
 import BLEAdvertiser from 'react-native-ble-advertiser';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NativeEventEmitter, NativeModules} from 'react-native';
 import PushNotification from 'react-native-push-notification';
-import {getData, storeData} from '../utils/storage';
 //import UUIDGenerator from 'react-native-uuid-generator';
 
 export default class BLEBackgroundService {
@@ -14,6 +12,16 @@ export default class BLEBackgroundService {
   static uuid;
   static cachedLastSeen = {};
   static c1MIN = 1000 * 60;
+
+  static checkDistance(_rssi) {
+    if (Math.pow(10, (-69 - _rssi) / (10 * 13)) < 1.5) {
+      PushNotification.localNotification({
+        channelId: 'test-channel',
+        title: 'Distance Alert',
+        message: 'Please Maintain Your Distance',
+      });
+    }
+  }
 
   /**
    * If the app needs to update the screen at every new device.
@@ -67,6 +75,13 @@ export default class BLEBackgroundService {
       });
   }
 
+  static isValidUUID(uuid) {
+    if (!uuid) return false;
+    return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{10}00$/.test(
+      uuid,
+    );
+  }
+
   static addDevice(_uuid, _name, _rssi, _date) {
     let lastSeenInMilliseconds = this.cachedLastSeen[_uuid];
     if (
@@ -82,37 +97,25 @@ export default class BLEBackgroundService {
     };
 
     let contactData = {
-      uploader: getData('my_bluetooth_uuid'),
+      uploader: '2d9609f4-8c49-4ab9-aafd-b513b2f9b9a2',
       _uuid,
       _rssi,
       date: _date.toISOString(),
     };
 
-    storeData(
-      'CONTACT' + _uuid + _date.toISOString(),
-      JSON.stringify(contactData),
-    );
+    // AsyncStorage.setItem(
+    //   'CONTACT' + _uuid + _date.toISOString(),
+    //   JSON.stringify(contactData),
+    // );
+
     this.cachedLastSeen[_uuid] = _date.getTime();
     this.emitNewDevice(device);
   }
 
-  static checkDistance(_rssi) {
-    if (Math.pow(10, (-69 - _rssi) / (10 * 2))) {
-      PushNotification.localNotification({
-        channelId: 'test-channel',
-        title: 'Distance Alert',
-        message: 'Please Maintain Your Distance',
-      });
-    }
-  }
-
-  static async getMyUUID() {
-    return await AsyncStorage.getItem('my_bluetooth_uuid')
-      .then(id => {
-        return id;
-      })
-      .catch(err => console.log(err));
-  }
+  //   static setServicesUUID(deviceSerial) {
+  //     let myUUID = toUUID(a2hex(deviceSerial));
+  //     AsyncStorage.setItem(MY_UUID, myUUID);
+  //   }
 
   static enableBT() {
     BLEAdvertiser.enableAdapter();
@@ -141,19 +144,15 @@ export default class BLEBackgroundService {
     }
   }
 
-  static async start() {
+  static start() {
     console.log('[BLEService] Starting BLE service');
-    PushNotification.localNotification({
-      channelId: 'test-channel',
-      title: 'JomTrace',
-      message: 'You are being secured bro',
-    });
+
     //cached_my_uuid = null;
     this.clearListener();
 
     this.emitBroadcastingStatus('Starting');
     this.emitScanningStatus('Starting');
-    console.log('Im running');
+
     this.onDeviceFoundListener = this.eventEmitter.addListener(
       'onDeviceFound',
       event => {
@@ -185,27 +184,40 @@ export default class BLEBackgroundService {
         }
       },
     );
-    try {
-      console.log('[BLEService]', await this.getMyUUID(), 'Starting Advertising');
-      BLEAdvertiser.broadcast(await this.getMyUUID(), [1, 0, 0, 0], {
+
+    // UUIDGenerator.getRandomUUID((newUid) => {
+    //   this.uuid = newUid.slice(0, -4) + 'ECAE';
+    // });
+    // console.log(this.uuid);
+    console.log(
+      '[BLEService]',
+      '2d9609f4-8c49-4ab9-aafd-b513b2f9b9a2',
+      'Starting Advertising',
+    );
+    BLEAdvertiser.broadcast(
+      '2d9609f4-8c49-4ab9-aafd-b513b2f9b9a2',
+      [1, 0, 0, 0],
+      {
         advertiseMode: BLEAdvertiser.ADVERTISE_MODE_LOW_POWER,
         txPowerLevel: BLEAdvertiser.ADVERTISE_TX_POWER_LOW,
         connectable: false,
         includeDeviceName: false,
         includeTxPowerLevel: false,
-      })
-        .then(sucess => this.emitBroadcastingStatus('Started'))
-        .catch(error => this.emitBroadcastingStatus(error));
+      },
+    )
+      .then(sucess => this.emitBroadcastingStatus('Started'))
+      .catch(error => this.emitBroadcastingStatus(error));
 
-      console.log('[BLEService]', await this.getMyUUID(), 'Starting Scanner');
-      BLEAdvertiser.scan([1, 0, 0, 0], {
-        scanMode: BLEAdvertiser.SCAN_MODE_BALANCED,
-      })
-        .then(sucess => this.emitScanningStatus('Started'))
-        .catch(error => this.emitScanningStatus(error));
-    } catch (err) {
-      console.log(err);
-    }
+    console.log(
+      '[BLEService]',
+      '2d9609f4-8c49-4ab9-aafd-b513b2f9b9a2',
+      'Starting Scanner',
+    );
+    BLEAdvertiser.scan([1, 0, 0, 0], {
+      scanMode: BLEAdvertiser.SCAN_MODE_BALANCED,
+    })
+      .then(sucess => this.emitScanningStatus('Started'))
+      .catch(error => this.emitScanningStatus(error));
   }
 
   static stop() {
@@ -215,12 +227,12 @@ export default class BLEBackgroundService {
     this.emitBroadcastingStatus('Stopping');
     this.emitScanningStatus('Stopping');
 
-    console.log('[BLEService]', this.getMyUUID(), 'Stopping Broadcast');
+    console.log('[BLEService]', this.uuid, 'Stopping Broadcast');
     BLEAdvertiser.stopBroadcast()
       .then(sucess => this.emitBroadcastingStatus('Stopped'))
       .catch(error => this.emitBroadcastingStatus(error));
 
-    console.log('[BLEService]', this.getMyUUID(), 'Stopping Scanning');
+    console.log('[BLEService]', this.uuid, 'Stopping Scanning');
     BLEAdvertiser.stopScan()
       .then(sucess => this.emitScanningStatus('Stopped'))
       .catch(error => this.emitScanningStatus(error));

@@ -18,13 +18,15 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Avatar, Button, Card, Title, Paragraph} from 'react-native-paper';
 import {ProgressChart} from 'react-native-chart-kit';
 import axios from 'axios';
+import {checkOutLocation} from '../redux/checkIn';
+import {getLocationDetails} from './Scan';
 
 const Home = props => {
   const data = {
-    labels: ['Apple', 'Banana', 'Cherry'], // optional
+    labels: ['Oxygen', 'Temperature', 'Others'], // optional
     data: [0.2, 0.5, 0.8],
   };
-
+  const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   //This part of the code will retrieve all items from the checkIn store
   //Check in store is in redux/store/checkIn
@@ -53,28 +55,30 @@ const Home = props => {
         <BottomContainer scrollY={scrollY} imageHeight={450}>
           <View style={styles.column}>
             {locations.map((location, i) => {
-              console.log(location.checkInObj.loc);
+              console.log(location.loc);
               if (i == size - 1)
                 return (
                   <Card style={styles.checkOut}>
                     <Card.Content>
                       <Title style={styles.paragraph}>
-                        Checked in at {location.checkInObj.loc}
+                        Checked in at {location.loc}
                       </Title>
                       <Paragraph style={styles.paragraph2}>
-                        Date: {location.checkInObj.date}
+                        Date: {location.date}
                       </Paragraph>
                       <Paragraph style={styles.paragraph2}>
-                        Time: {location.checkInObj.time}
+                        Time: {location.time}
                       </Paragraph>
                     </Card.Content>
                     <Card.Actions>
                       <Button
-                        onPress={() =>
+                        onPress={() => {
+                          dispatch(checkOutLocation(location.id));
+                          getLocationDetails;
                           axios.post(
                             'https://jom-trace-backend.herokuapp.com/checkOut',
                             {
-                              location: location.checkInObj.id,
+                              location: location.id,
                             },
                             {
                               headers: {
@@ -82,8 +86,8 @@ const Home = props => {
                                 //other header fields
                               },
                             },
-                          )
-                        }
+                          );
+                        }}
                         style={styles.button}>
                         Check-Out
                       </Button>
@@ -98,7 +102,7 @@ const Home = props => {
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
                   <Title>Hotspot Tracker</Title>
-                  <Text style={styles.stats}>88</Text>
+                  <Text style={styles.stats}>0</Text>
                   <Paragraph style={styles.paragraph}>
                     hotspot location have been visited in the last 14 days.
                   </Paragraph>
@@ -112,7 +116,7 @@ const Home = props => {
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
                   <Title>Risk Estimation</Title>
-                  <Text style={styles.stats}>83%</Text>
+                  <Text style={styles.stats}>15%</Text>
                   <Paragraph style={styles.paragraph}>
                     You’re less likely exposed to Covid-19. Stay safe!
                   </Paragraph>

@@ -19,9 +19,26 @@ import BackgroundTaskServices from './src/services/BackgroundTaskService';
 import {createChannel} from './src/services/NotificationService';
 import {initializeFirebaseRemoteConfig} from './src/utils/remoteConfig';
 import {getData, storeData} from './src/utils/storage';
-import {getUser} from './src/utils/Auth';
+import {LogBox} from 'react-native';
+import auth from '@react-native-firebase/auth';
+import {getUser} from './src/api';
+
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 const App = () => {
+  const getCurrentUser = async () => {
+    try {
+      console.log(auth().currentUser.uid);
+      const user = await getUser(auth().currentUser.uid);
+      console.log('heloooooo');
+      //console.log(user);
+      storeData('my_bluetooth_uuid', user.uuid);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getFcmToken = async () => {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
@@ -31,6 +48,7 @@ const App = () => {
       console.log('Failed', 'No token received');
     }
   };
+
   const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission();
     const enabled =
@@ -43,9 +61,14 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    BackgroundTaskServices.start();
+  const getMyUUID = async () => {
+    return await getData('my_bluetooth_uuid');
+  };
 
+  useEffect(() => {
+    //getCurrentUser();
+    BackgroundTaskServices.start();
+    console.log(getData('my_bluetooth_uuid'));
     BLEBackgroundService.init();
     createChannel();
     initializeFirebaseRemoteConfig();

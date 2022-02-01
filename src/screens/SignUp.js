@@ -10,11 +10,15 @@ import {
   View,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import messaging from '@react-native-firebase/messaging';
+import {createUser, getUser} from '../api';
+import {storeData} from '../utils/storage';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(false);
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -22,26 +26,34 @@ const SignUp = () => {
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
-    if (initializing) setInitializing(false);
+    if (initializing) {
+      setInitializing(false);
+    }
   }
   const navigation = useNavigation();
 
-  const handleSignin = () => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Logged in with:', user.email);
-      })
-      .catch(error => alert('Account does not exist!'));
+  // SIGN IN AUTHEMTICATION METHOD
+  const handleSignin = async () => {
+    try {
+      const user = await auth().signInWithEmailAndPassword(email, password);
+      console.log('ello11');
+      console.log(user.user.uid);
+      const userDetails = await getUser(user.user.uid);
+      console.log(userDetails);
+      storeData('my_bluetooth_uuid', userDetails.uuid);
+      setIsSignIn(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  // SIGN UP AUTHENTICATION METHOD
   const handleSignUp = () => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
-        navigation.replace('Home');
+        setIsSignUp(true);
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -65,49 +77,56 @@ const SignUp = () => {
 
   if (initializing) return null;
 
-  if (!user) {
-    return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Text style={styles.titleText}>JomTrace</Text>
-        <Image
-          style={{width: '100%', height: 300}}
-          source={require('../../assets/images/Sign-Up.png')}
-          resizeMode="contain"
+  if (isSignUp) {
+    navigation.replace('UserForm');
+    return null;
+  }
+
+  if (isSignIn) {
+    navigation.replace('Tabs');
+    return null;
+  }
+
+  return (
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <Text style={styles.titleText}>JomTrace</Text>
+      <Image
+        style={{width: '100%', height: 300}}
+        source={require('../../assets/images/Sign-Up.png')}
+        resizeMode="contain"
+      />
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={text => setEmail(text)}
+          style={styles.input}
         />
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={text => setEmail(text)}
-            style={styles.input}
-          />
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={text => setPassword(text)}
+          style={styles.input}
+          secureTextEntry
+        />
+      </View>
 
-          <TextInput
-            placeholder="Password"
-            value={password}
-            onChangeText={text => setPassword(text)}
-            style={styles.input}
-            secureTextEntry
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handleSignin} style={styles.button}>
-            <Text style={styles.buttonText}>Log-In</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={handleSignUp}
-            style={[styles.button, styles.buttonOutline]}>
-            <Text style={styles.buttonOutlineText}>Register</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    );
-  }
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={handleSignin} style={styles.button}>
+          <Text style={styles.buttonText}>Log-In </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleSignUp}
+          style={[styles.button, styles.buttonOutline]}>
+          <Text style={styles.buttonOutlineText}>Register </Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
+  );
   //RETURN LOADING COMPONENT
-  navigation.replace('Home');
-  return null;
+  //navigation.replace('Home');
 };
 
 export default SignUp;
@@ -125,10 +144,10 @@ const styles = StyleSheet.create({
 
   titleText: {
     fontFamily: 'Inter',
-    fontSize: 32,
+    fontSize: 48,
     fontWeight: 'bold',
     color: '#0D4930',
-    top: '5%',
+    top: '3%',
     margin: 0,
   },
 
@@ -140,7 +159,7 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   buttonContainer: {
-    width: '60%',
+    width: '65%',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 5,

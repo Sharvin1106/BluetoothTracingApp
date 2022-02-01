@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {getData} from '../utils/storage';
+import {useSelector, useDispatch} from 'react-redux';
 
 const DATA = [
   {
@@ -15,21 +16,28 @@ const DATA = [
 ];
 
 const Bluetooth = () => {
-  const getMyUUID = async () => {
+  const {auth} = useSelector(state => state.auth);
+  const [closeContacts, setCloseContacts] = useState([]);
+
+  const getListContacts = async () => {
     try {
-      return await getData('my_bluetooth_uuid');
-    } catch (error) {
-      console.log(error);
+      const contacts = await getData('close_contact');
+      setCloseContacts(contacts);
+    } catch (err) {
+      console.log(err);
     }
   };
+  useEffect(() => {
+    getListContacts();
+  });
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Broadcasting : </Text>
-      <Text style={styles.data}>{getMyUUID()}</Text>
+      <Text style={styles.data}>{auth.uuid}</Text>
       <Text style={styles.titleText}>Current Close{'\n'}Contacts:</Text>
       <FlatList
-        data={DATA}
-        renderItem={({item}) => <Text style={styles.item}>{item.id}</Text>}
+        data={closeContacts}
+        renderItem={({item}) => <Text style={styles.item}>{item._uuid}</Text>}
       />
     </View>
   );

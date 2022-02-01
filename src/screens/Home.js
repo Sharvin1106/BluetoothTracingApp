@@ -23,6 +23,7 @@ import {getLocationDetails} from './Scan';
 import {getUser} from '../api';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/core';
+import {authenticateUser} from '../redux/auth';
 
 const Home = props => {
   const data = {
@@ -41,6 +42,7 @@ const Home = props => {
     try {
       const userDetails = await getUser(auth().currentUser.uid);
       setUser(userDetails[0]);
+      dispatch(authenticateUser(userDetails[0]));
     } catch (error) {
       console.log(error);
     }
@@ -50,9 +52,6 @@ const Home = props => {
     getCurrentUser();
   }, [navigation]);
 
-  const username = getUser.username;
-
-  console.log(size);
   return (
     <View style={[styles.container]}>
       <StatusBar

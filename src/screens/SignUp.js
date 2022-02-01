@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 import messaging from '@react-native-firebase/messaging';
 import {createUser, getUser} from '../api';
 import {storeData} from '../utils/storage';
+import BLEBackgroundService from '../services/BackgroundBleService';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -40,6 +41,8 @@ const SignUp = () => {
       const userDetails = await getUser(user.user.uid);
       console.log(userDetails);
       storeData('my_bluetooth_uuid', userDetails[0].uuid);
+      BLEBackgroundService.stop();
+      BLEBackgroundService.start();
       setIsSignIn(true);
     } catch (error) {
       console.log(error);
@@ -52,6 +55,8 @@ const SignUp = () => {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
+        BLEBackgroundService.stop();
+        BLEBackgroundService.start();
         setIsSignUp(true);
       })
       .catch(error => {

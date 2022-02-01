@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   },
   item: {
     flex: 1,
+    margin: '5%',
     marginHorizontal: 10,
     padding: 5,
     fontFamily: 'Inter',

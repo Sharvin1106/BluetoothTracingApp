@@ -31,7 +31,6 @@ const App = () => {
     try {
       console.log(auth().currentUser.uid);
       const user = await getUser(auth().currentUser.uid);
-      console.log('heloooooo');
       //console.log(user);
       storeData('my_bluetooth_uuid', user.uuid);
     } catch (error) {

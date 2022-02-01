@@ -12,8 +12,9 @@ import {
 import moment from 'moment';
 import {getAllLocations} from '../api';
 import {useSelector, useDispatch} from 'react-redux';
-import {checkInLocation} from '../redux/checkIn';
+import {checkInLocation, checkOutLocation} from '../redux/checkIn';
 import {ActivityIndicator, Colors} from 'react-native-paper';
+import {locationCheckIn} from '../utils/storage';
 
 const Scan = () => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
@@ -42,12 +43,17 @@ const Scan = () => {
     var time = moment().format('HH:mm:ss');
     var loc = users[index].locationName;
     var id = users[index]._id.$oid;
+    var capac = users[index].capacity;
+    var visitorsCount = users[index].visitorsCount;
+    var hotspot = false;
+    if (visitorsCount >= capac) hotspot = true;
     // CREATE CHECK-IN OBJECT
     const checkInObj = {
       date: date,
       time: time,
       loc: loc,
       id: id,
+      hotspot: hotspot,
     };
     // CALLING POST METHOD API
     axios.post(
@@ -63,6 +69,11 @@ const Scan = () => {
       },
     );
     // TRIGGERING STATE CHANGES TO MAIN DASHBAORD (CHECK-OUT CARD)
+    // var size = locations.length;
+    // while (size != 0) {
+    //   dispatch(checkOutLocation(locations.id));
+    // }
+    locationCheckIn(checkInObj);
     dispatch(checkInLocation(checkInObj));
     console.log(checkInObj);
     getLocationDetails();
@@ -101,10 +112,11 @@ const Scan = () => {
     );
   }
 
-  getVisitorRange = v => {
+  getVisitorRange = (v, c) => {
     //console.log(v);
-    if (v > 50) return styles.Hrisk;
-    else if (v >= 25 && v <= 50) return styles.Mrisk;
+    var m = c / 2;
+    if (v > c) return styles.Hrisk;
+    else if (v >= m && v <= c) return styles.Mrisk;
     else return styles.Lrisk;
   };
 
@@ -117,7 +129,11 @@ const Scan = () => {
           <TouchableOpacity
             key={index}
             onPress={() => checkInSuccessful(index)}>
-            <Text style={[styles.item, getVisitorRange(item.visitorsCount)]}>
+            <Text
+              style={[
+                styles.item,
+                getVisitorRange(item.visitorsCount, item.capacity),
+              ]}>
               {item.locationName + ' (' + item.visitorsCount + ')'}
             </Text>
           </TouchableOpacity>

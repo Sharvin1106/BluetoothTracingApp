@@ -24,6 +24,7 @@ import {getUser} from '../api';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/core';
 import {authenticateUser} from '../redux/auth';
+import {getData} from '../utils/storage';
 
 const Home = props => {
   const data = {
@@ -33,6 +34,7 @@ const Home = props => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [user, setUser] = useState({});
+  const [LocationCount, setLocationCount] = useState(0);
   const {locations} = useSelector(state => state.checkIn);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -48,7 +50,13 @@ const Home = props => {
     }
   };
 
+  //LOCATION HOTSPOT
   useEffect(() => {
+    (async () => {
+      try {
+        const locations = await getData('location_visited');
+      } catch (error) {}
+    })();
     getCurrentUser();
   }, [navigation]);
 
@@ -69,6 +77,7 @@ const Home = props => {
           <View style={styles.column}>
             {locations.map((location, i) => {
               console.log(location.loc);
+
               if (i == size - 1)
                 return (
                   <Card style={styles.checkOut}>
@@ -138,7 +147,7 @@ const Home = props => {
             </View>
           </View>
 
-          <View style={styles.row}>
+          {/* <View style={styles.row}>
             <View style={styles.seveReport}>
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
@@ -161,7 +170,7 @@ const Home = props => {
                 />
               </Card>
             </View>
-          </View>
+          </View> */}
         </BottomContainer>
       </SafeAreaView>
     </View>

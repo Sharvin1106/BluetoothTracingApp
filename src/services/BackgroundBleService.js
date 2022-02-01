@@ -152,7 +152,7 @@ export default class BLEBackgroundService {
   }
 
   static async getMyUUID() {
-    return await AsyncStorage.getItem('my_bluetooth_uuid');
+    return await getData('my_bluetooth_uuid');
   }
 
   static async start() {

@@ -22,6 +22,7 @@ import {getData, storeData} from './src/utils/storage';
 import {LogBox} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {getUser} from './src/api';
+import {startServices} from './src/utils/initialService';
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -67,9 +68,16 @@ const App = () => {
 
   useEffect(() => {
     //getCurrentUser();
-    BackgroundTaskServices.start();
-    console.log(getData('my_bluetooth_uuid'));
-    BLEBackgroundService.init();
+    (async () => {
+      try {
+        const allowTracing = await getData('allow_tracing');
+        if (allowTracing) {
+          startServices();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
     createChannel();
     initializeFirebaseRemoteConfig();
     requestUserPermission();

@@ -28,9 +28,11 @@ export const addCloseContact = async contact => {
     const value = await AsyncStorage.getItem('close_contact');
     if (value !== null) {
       const contacts = JSON.parse(value);
+      console.log(value);
+      contacts.push(contact)
       await AsyncStorage.setItem(
         'close_contact',
-        JSON.stringify(contacts.push(contact)),
+        JSON.stringify(contacts),
       );
       return true;
     } else {

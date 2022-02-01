@@ -22,6 +22,7 @@ export default () => {
       .then(() => {
         alert('Signed out successfully!');
         storeData('my_bluetooth_uuid', '');
+        removeData('close_contact');
         navigation.replace('Auth');
       })
       .catch(error => alert(error.message));

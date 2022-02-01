@@ -50,9 +50,6 @@ const Home = props => {
     getCurrentUser();
   }, [navigation]);
 
-  const username = getUser.username;
-
-  console.log(size);
   return (
     <View style={[styles.container]}>
       <StatusBar

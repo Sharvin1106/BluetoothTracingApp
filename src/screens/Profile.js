@@ -3,6 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/core';
 import {Card} from 'react-native-elements';
+import {storeData} from '../utils/storage';
 
 export default () => {
   const navigation = useNavigation();
@@ -11,6 +12,7 @@ export default () => {
       .signOut()
       .then(() => {
         alert('Signed out successfully!');
+        storeData('my_bluetooth_uuid', '');
         navigation.replace('Auth');
       })
       .catch(error => alert(error.message));

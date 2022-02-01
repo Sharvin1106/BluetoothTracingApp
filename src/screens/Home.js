@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Alert,
   Text,
@@ -20,6 +20,9 @@ import {ProgressChart} from 'react-native-chart-kit';
 import axios from 'axios';
 import {checkOutLocation} from '../redux/checkIn';
 import {getLocationDetails} from './Scan';
+import {getUser} from '../api';
+import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/core';
 
 const Home = props => {
   const data = {
@@ -28,16 +31,27 @@ const Home = props => {
   };
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
-  //This part of the code will retrieve all items from the checkIn store
-  //Check in store is in redux/store/checkIn
-  //You will need to use useSelector hook to get checkIn details
-  // state.checkIn - specifying which redux reducer yr referring to
-  // useDispatch will be used to execute function inside redux
-  //You can't simply call them as usual functions, it will not update the store nor screen
-  // So you need a useDispatch hook to execute them
+  const [user, setUser] = useState({});
   const {locations} = useSelector(state => state.checkIn);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   var size = locations.length;
+
+  const getCurrentUser = async () => {
+    try {
+      const userDetails = await getUser(auth().currentUser.uid);
+      setUser(userDetails[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getCurrentUser();
+  }, [navigation]);
+
+  const username = getUser.username;
+
   console.log(size);
   return (
     <View style={[styles.container]}>
@@ -51,7 +65,7 @@ const Home = props => {
           style={{
             height: Platform.OS === 'android' ? getStatusBarHeight() : 0,
           }}></View>
-        <ImageContainer scrollY={scrollY} />
+        <ImageContainer user={user} scrollY={scrollY} />
         <BottomContainer scrollY={scrollY} imageHeight={450}>
           <View style={styles.column}>
             {locations.map((location, i) => {

@@ -1,4 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
+import {useNavigation} from '@react-navigation/core';
 import axios from 'axios';
 import {
   Alert,
@@ -18,6 +19,7 @@ const Scan = () => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [users, setUsers] = useState([]); // Initial empty array of users
   const {locations} = useSelector(state => state.checkIn);
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const createCheckInAlert = (date, time, loc) =>

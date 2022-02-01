@@ -3,9 +3,7 @@ import {Text, Animated, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {getUser} from '../api';
 
-const ImageContainer = ({scrollY, imageSource, imageHeight}) => {
-  // const userId = getUserId();
-  // User = getUser(auth.userId);
+const ImageContainer = ({scrollY, imageSource, imageHeight, user}) => {
   return (
     <LinearGradient
       start={{x: 0, y: 0.5}}
@@ -14,7 +12,8 @@ const ImageContainer = ({scrollY, imageSource, imageHeight}) => {
       style={styles.linearGradient}>
       <Text style={styles.titleText}>JomTrace</Text>
       <Text style={styles.Text}>
-        Hey , mask up! {'\n'}You’ve been in contact with 8 people today.
+        Hey ,{user.username} mask up! {'\n'}You’ve been in contact with 8 people
+        today.
       </Text>
     </LinearGradient>
   );

@@ -36,11 +36,10 @@ const SignUp = () => {
   const handleSignin = async () => {
     try {
       const user = await auth().signInWithEmailAndPassword(email, password);
-      console.log('ello11');
       console.log(user.user.uid);
       const userDetails = await getUser(user.user.uid);
       console.log(userDetails);
-      storeData('my_bluetooth_uuid', userDetails.uuid);
+      storeData('my_bluetooth_uuid', userDetails[0].uuid);
       setIsSignIn(true);
     } catch (error) {
       console.log(error);

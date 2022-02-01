@@ -49,9 +49,10 @@ export const locationCheckIn = async location => {
     const value = await AsyncStorage.getItem('location_visited');
     if (value !== null) {
       const locations = JSON.parse(value);
+      locations.push(location)
       await AsyncStorage.setItem(
         'locations_visited',
-        JSON.stringify(locations.push(contact)),
+        JSON.stringify(locations),
       );
       return true;
     } else {

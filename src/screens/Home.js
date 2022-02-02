@@ -42,12 +42,29 @@ const Home = props => {
     try {
       const userDetails = await getUser(auth().currentUser.uid);
       setUser(userDetails[0]);
+      statusCheck(userDetails[0]);
       dispatch(authenticateUser(userDetails[0]));
     } catch (error) {
       console.log(error);
     }
   };
-
+  const statusCheck = (userDetail) => {
+    console.log(userDetail)
+    if (userDetail.status === 'Suspect') {
+      Alert.alert(
+        'Exposure Notification',
+        'You have been classified as casual contact, please upload your contact details',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              console.log('ok');
+            },
+          },
+        ],
+      );
+    }
+  };
   useEffect(() => {
     getCurrentUser();
   }, [navigation]);

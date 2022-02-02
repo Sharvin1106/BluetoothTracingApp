@@ -41,9 +41,7 @@ const SignUp = () => {
       const userDetails = await getUser(user.user.uid);
       console.log(userDetails);
       storeData('my_bluetooth_uuid', userDetails[0].uuid);
-      BLEBackgroundService.stop();
-      BLEBackgroundService.start();
-      setIsSignIn(true);
+      //  setIsSignIn(true);
     } catch (error) {
       console.log(error);
     }
@@ -55,9 +53,8 @@ const SignUp = () => {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
-        BLEBackgroundService.stop();
-        BLEBackgroundService.start();
         setIsSignUp(true);
+        navigation.replace('UserForm');
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -81,12 +78,12 @@ const SignUp = () => {
  
   if (initializing) return null;
 
-  if (isSignUp) {
-    navigation.replace('UserForm');
-    return null;
-  }
+  // if (isSignUp) {
+  //   navigation.replace('UserForm');
+  //   return null;
+  // }
 
-  if (isSignIn || auth().currentUser?.uid) {
+  if (!isSignUp && auth().currentUser?.uid) {
     navigation.replace('Tabs');
     return null;
   }

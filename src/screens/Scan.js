@@ -15,6 +15,7 @@ import {getAllLocations} from '../api';
 import {useSelector, useDispatch} from 'react-redux';
 import {checkInLocation} from '../redux/checkIn';
 import {ActivityIndicator, Colors} from 'react-native-paper';
+import {getData} from '../utils/storage';
 
 const Scan = ({navigation}) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
@@ -75,17 +76,27 @@ const Scan = ({navigation}) => {
   };
 
   const getLocationDetails = useCallback(async () => {
-    setLoading(true)
+    setLoading(true);
     const locations = await getAllLocations();
     console.log(locations);
     setUsers(locations);
     setLoading(false);
   });
 
+  const getLocationList = async () => {
+    try {
+      const locations = await getData('location_visited');
+      console.log(locations);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     if (isFocused) {
-      console.log(isFocused)
+      console.log(isFocused);
       getLocationDetails();
+      getLocationList();
     }
   }, [isFocused]);
 

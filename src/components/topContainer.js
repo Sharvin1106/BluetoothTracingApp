@@ -12,7 +12,7 @@ const ImageContainer = ({scrollY, imageSource, imageHeight, user}) => {
       style={styles.linearGradient}>
       <Text style={styles.titleText}>JomTrace</Text>
       <Text style={styles.Text}>
-        Hey ,{user.username} mask up! {'\n'}You’ve been in contact with 8 people
+        Hey ,{user?.username} mask up! {'\n'}You’ve been in contact with 8 people
         today.
       </Text>
     </LinearGradient>

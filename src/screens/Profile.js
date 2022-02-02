@@ -12,10 +12,21 @@ import {useNavigation} from '@react-navigation/core';
 import {Card} from 'react-native-elements';
 import {getData, removeData, storeData} from '../utils/storage';
 import {startServices, stopService} from '../utils/initialService';
+import {getUser} from '../api';
 
 export default () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
+  const [user, setUser] = useState({});
+
+  const getCurrentUser = async () => {
+    try {
+      const userDetails = await getUser(auth().currentUser.uid);
+      setUser(userDetails[0]);
+      dispatch(authenticateUser(userDetails[0]));
+    } catch (error) {}
+  };
+
   const handleSignOut = () => {
     auth()
       .signOut()
@@ -43,6 +54,19 @@ export default () => {
     }
   };
 
+  const checkVaccinated = V => {
+    if (V == 'Y') return 'Vaccinated';
+    else if (V == 'N') return 'Not Vaccinated';
+  };
+
+  const checkHealth = H => {
+    if (H == 'negative') return 'Negative';
+  };
+
+  const declarePositive =() => {
+    user.status = 'Positive';
+  }
+
   useEffect(() => {
     (async () => {
       try {
@@ -54,6 +78,7 @@ export default () => {
         console.log(error);
       }
     })();
+    getCurrentUser();
   });
   return (
     <View style={styles.container}>
@@ -63,27 +88,26 @@ export default () => {
         resizeMode="contain"
       />
 
-      <Text style={styles.Title}>Jeevittan Krishnan</Text>
-      <Text style={styles.data}>016-65893321</Text>
-      <TouchableOpacity style={styles.button2}>
+      <Text style={styles.Title}>{user.username}</Text>
+      <Text style={styles.data}>{user.mobile}</Text>
+      <TouchableOpacity onPress={declarePositive} style={styles.button2}>
         <Text style={styles.buttonText2}>Declare Positive</Text>
       </TouchableOpacity>
 
       <Text style={styles.Title}>Vaccination Status</Text>
-      <Text style={styles.data}>Vaccinated</Text>
+      <Text style={styles.data}>{checkVaccinated(user.vaccinated)}</Text>
       <Text style={styles.Title}>Health Status</Text>
-      <Text style={styles.data}>No Symptoms</Text>
-      <View style={styles.container}>
-        <Switch
-          trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        />
-      </View>
+      <Text style={styles.data}>{checkHealth(user.status)}</Text>
+      <Switch
+        style={styles.switch}
+        trackColor={{false: '#767577', true: '#81b0ff'}}
+        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+      />
       <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
+        <Text style={styles.buttonText}>Sign out </Text>
       </TouchableOpacity>
     </View>
   );
@@ -109,6 +133,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '700',
     fontSize: 16,
+    textAlign: 'center',
   },
   button2: {
     backgroundColor: '#FF4744',
@@ -117,17 +142,19 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 10,
     alignItems: 'center',
-    marginBottom: '10%',
+    marginBottom: '15%',
   },
   buttonText2: {
     color: 'white',
     fontWeight: '700',
     fontSize: 16,
+    textAlign: 'center',
   },
   profilePic: {
     width: '50%',
     height: '20%',
-    marginBottom: '3%',
+    marginVertical: '3%',
+    marginTop: '5%',
   },
   column: {},
   Title: {
@@ -143,5 +170,8 @@ const styles = StyleSheet.create({
     color: '#3E4248',
     textAlign: 'center',
     marginBottom: '2%',
+  },
+  switch: {
+    margin: 0,
   },
 });

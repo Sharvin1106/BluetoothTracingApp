@@ -78,7 +78,7 @@ const SignUp = () => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
-
+ 
   if (initializing) return null;
 
   if (isSignUp) {
@@ -86,7 +86,7 @@ const SignUp = () => {
     return null;
   }
 
-  if (isSignIn) {
+  if (isSignIn || auth().currentUser?.uid) {
     navigation.replace('Tabs');
     return null;
   }

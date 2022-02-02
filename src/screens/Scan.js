@@ -9,6 +9,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
+import {useIsFocused} from '@react-navigation/core';
 import moment from 'moment';
 import {getAllLocations} from '../api';
 import {useSelector, useDispatch} from 'react-redux';
@@ -16,11 +17,12 @@ import {checkInLocation, checkOutLocation} from '../redux/checkIn';
 import {ActivityIndicator, Colors} from 'react-native-paper';
 import {locationCheckIn} from '../utils/storage';
 
-const Scan = () => {
+const Scan = ({navigation}) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [users, setUsers] = useState([]); // Initial empty array of users
   const {locations} = useSelector(state => state.checkIn);
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
   const createCheckInAlert = (date, time, loc) =>
@@ -84,6 +86,7 @@ const Scan = () => {
   };
 
   const getLocationDetails = useCallback(async () => {
+    setLoading(true)
     const locations = await getAllLocations();
     console.log(locations);
     setUsers(locations);
@@ -91,8 +94,11 @@ const Scan = () => {
   });
 
   useEffect(() => {
-    getLocationDetails();
-  }, [navigation]);
+    if (isFocused) {
+      console.log(isFocused)
+      getLocationDetails();
+    }
+  }, [isFocused]);
 
   if (loading) {
     return (

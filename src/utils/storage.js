@@ -28,9 +28,11 @@ export const addCloseContact = async contact => {
     const value = await AsyncStorage.getItem('close_contact');
     if (value !== null) {
       const contacts = JSON.parse(value);
+      console.log(value);
+      contacts.push(contact)
       await AsyncStorage.setItem(
         'close_contact',
-        JSON.stringify(contacts.push(contact)),
+        JSON.stringify(contacts),
       );
       return true;
     } else {
@@ -47,9 +49,10 @@ export const locationCheckIn = async location => {
     const value = await AsyncStorage.getItem('location_visited');
     if (value !== null) {
       const locations = JSON.parse(value);
+      locations.push(location)
       await AsyncStorage.setItem(
         'locations_visited',
-        JSON.stringify(locations.push(contact)),
+        JSON.stringify(locations),
       );
       return true;
     } else {

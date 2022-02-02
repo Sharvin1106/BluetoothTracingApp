@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {getData} from '../utils/storage';
 import {useSelector, useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/core';
 
 const DATA = [
   {
@@ -15,21 +17,24 @@ const DATA = [
   },
 ];
 
-const Bluetooth = () => {
+const Bluetooth = ({navigation}) => {
   const {auth} = useSelector(state => state.auth);
   const [closeContacts, setCloseContacts] = useState([]);
-
+  const isFocused = useIsFocused();
   const getListContacts = async () => {
     try {
       const contacts = await getData('close_contact');
-      setCloseContacts(contacts);
+      setCloseContacts(JSON.parse(contacts));
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    getListContacts();
-  });
+    if (isFocused) {
+      getListContacts();
+      console.log(closeContacts);
+    }
+  }, [isFocused]);
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Broadcasting : </Text>

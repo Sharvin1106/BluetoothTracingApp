@@ -15,7 +15,7 @@ import {getAllLocations} from '../api';
 import {useSelector, useDispatch} from 'react-redux';
 import {checkInLocation, checkOutLocation} from '../redux/checkIn';
 import {ActivityIndicator, Colors} from 'react-native-paper';
-import {hotspotLocation, locationCheckIn} from '../utils/storage';
+import {hotspotLocation, locationCheckIn, getData} from '../utils/storage';
 
 const Scan = ({navigation}) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
@@ -99,10 +99,20 @@ const Scan = ({navigation}) => {
     setLoading(false);
   });
 
+  const getLocationList = async () => {
+    try {
+      const locations = await getData('location_visited');
+      console.log(locations);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     if (isFocused) {
       console.log(isFocused);
       getLocationDetails();
+      getLocationList();
     }
   }, [isFocused]);
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   Alert,
   Text,
@@ -40,21 +40,38 @@ const Home = props => {
   const navigation = useNavigation();
   var size = locations.length;
 
-  const getCurrentUser = async () => {
+  const getCurrentUser = useCallback(async () => {
     try {
       const userDetails = await getUser(auth().currentUser.uid);
       setUser(userDetails[0]);
+      statusCheck(userDetails[0]);
       dispatch(authenticateUser(userDetails[0]));
     } catch (error) {
       console.log(error);
     }
+  });
+  const statusCheck = userDetail => {
+    console.log(userDetail);
+    if (userDetail.status === 'Suspect') {
+      Alert.alert(
+        'Exposure Notification',
+        'You have been classified as casual contact, please upload your contact details',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              console.log('ok');
+            },
+          },
+        ],
+      );
+    }
   };
-
-  //LOCATION HOTSPOT
   useEffect(() => {
     (async () => {
       try {
         const locations = await getData('location_visited');
+        console.log(locations);
       } catch (error) {}
     })();
     getCurrentUser();

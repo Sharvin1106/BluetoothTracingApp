@@ -63,3 +63,11 @@ export const locationCheckIn = async location => {
     console.log(err);
   }
 };
+
+export const removeData = async key => {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (error) {
+    console.log(error);
+  }
+};

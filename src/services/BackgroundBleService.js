@@ -1,5 +1,4 @@
 import BLEAdvertiser from 'react-native-ble-advertiser';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NativeEventEmitter, NativeModules} from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import {addCloseContact, getData, storeData} from '../utils/storage';
@@ -84,6 +83,7 @@ export default class BLEBackgroundService {
       !lastSeenInMilliseconds ||
       _date.getTime() > lastSeenInMilliseconds + this.c1MIN
     ) {
+      
     }
     try {
       let device = {
@@ -114,15 +114,10 @@ export default class BLEBackgroundService {
     }
   }
 
-  static checkDistance(_rssi) {
-    if (Math.pow(10, (-69 - _rssi) / (10 * 2))) {
-      PushNotification.localNotification({
-        channelId: 'test-channel',
-        title: 'Distance Alert',
-        message: 'Please Maintain Your Distance',
-      });
-    }
-  }
+  //   static setServicesUUID(deviceSerial) {
+  //     let myUUID = toUUID(a2hex(deviceSerial));
+  //     AsyncStorage.setItem(MY_UUID, myUUID);
+  //   }
 
   static enableBT() {
     BLEAdvertiser.enableAdapter();
@@ -161,11 +156,7 @@ export default class BLEBackgroundService {
 
   static async start() {
     console.log('[BLEService] Starting BLE service');
-    PushNotification.localNotification({
-      channelId: 'test-channel',
-      title: 'JomTrace',
-      message: 'You are being secured bro',
-    });
+
     //cached_my_uuid = null;
     this.clearListener();
 

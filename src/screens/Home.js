@@ -77,7 +77,39 @@ const Home = props => {
           <View style={styles.column}>
             {locations.map((location, i) => {
               console.log(location.loc);
-
+              if (size === 0) {
+                return (
+                  <Card style={styles.checkOut}>
+                    <Card.Content>
+                      <Title style={styles.paragraph}>
+                        You're not checked in anywhere.
+                      </Title>
+                    </Card.Content>
+                    <Card.Actions>
+                      <Button
+                        onPress={() => {
+                          dispatch(checkOutLocation(location.id));
+                          getLocationDetails;
+                          axios.post(
+                            'https://jom-trace-backend.herokuapp.com/checkOut',
+                            {
+                              location: location.id,
+                            },
+                            {
+                              headers: {
+                                'Content-Type': 'application/json',
+                                //other header fields
+                              },
+                            },
+                          );
+                        }}
+                        style={styles.button}>
+                        Check-Out
+                      </Button>
+                    </Card.Actions>
+                  </Card>
+                );
+              }
               if (i == size - 1)
                 return (
                   <Card style={styles.checkOut}>

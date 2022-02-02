@@ -51,7 +51,7 @@ export const locationCheckIn = async location => {
       const locations = JSON.parse(value);
       locations.push(location)
       await AsyncStorage.setItem(
-        'locations_visited',
+        'location_visited',
         JSON.stringify(locations),
       );
       return true;
@@ -59,6 +59,26 @@ export const locationCheckIn = async location => {
       const newLocation = [location];
       await AsyncStorage.setItem(
         'location_visited',
+        JSON.stringify(newLocation),
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const hotspotLocation = async location => {
+  try {
+    const value = await AsyncStorage.getItem('hotspot_visited');
+    if (value !== null) {
+      const locations = JSON.parse(value);
+      locations.push(location);
+      await AsyncStorage.setItem('hotspot_visited', JSON.stringify(locations));
+      return true;
+    } else {
+      const newLocation = [location];
+      await AsyncStorage.setItem(
+        'hotspot_visited',
         JSON.stringify(newLocation),
       );
     }

@@ -15,7 +15,7 @@ import {getAllLocations} from '../api';
 import {useSelector, useDispatch} from 'react-redux';
 import {checkInLocation, checkOutLocation} from '../redux/checkIn';
 import {ActivityIndicator, Colors} from 'react-native-paper';
-import {locationCheckIn} from '../utils/storage';
+import {hotspotLocation, locationCheckIn} from '../utils/storage';
 
 const Scan = ({navigation}) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
@@ -71,12 +71,18 @@ const Scan = ({navigation}) => {
       },
     );
     // TRIGGERING STATE CHANGES TO MAIN DASHBAORD (CHECK-OUT CARD)
-    // var size = locations.length;
-    // while (size != 0) {
-    //   dispatch(checkOutLocation(locations.id));
-    // }
+    var size = locations.length;
+    while (size != 0) {
+      dispatch(checkOutLocation(locations.id));
+      size--;
+    }
+
+    if (hotspot) {
+      hotspotLocation(checkInObj);
+    }
     locationCheckIn(checkInObj);
     dispatch(checkInLocation(checkInObj));
+
     console.log(checkInObj);
     getLocationDetails();
     console.log(loc);
@@ -86,7 +92,7 @@ const Scan = ({navigation}) => {
   };
 
   const getLocationDetails = useCallback(async () => {
-    setLoading(true)
+    setLoading(true);
     const locations = await getAllLocations();
     console.log(locations);
     setUsers(locations);
@@ -95,7 +101,7 @@ const Scan = ({navigation}) => {
 
   useEffect(() => {
     if (isFocused) {
-      console.log(isFocused)
+      console.log(isFocused);
       getLocationDetails();
     }
   }, [isFocused]);

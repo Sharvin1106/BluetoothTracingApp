@@ -24,9 +24,7 @@ export default () => {
       const userDetails = await getUser(auth().currentUser.uid);
       setUser(userDetails[0]);
       dispatch(authenticateUser(userDetails[0]));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleSignOut = () => {
@@ -56,6 +54,19 @@ export default () => {
     }
   };
 
+  const checkVaccinated = V => {
+    if (V == 'Y') return 'Vaccinated';
+    else if (V == 'N') return 'Not Vaccinated';
+  };
+
+  const checkHealth = H => {
+    if (H == 'negative') return 'Negative';
+  };
+
+  const declarePositive =() => {
+    user.status = 'Positive';
+  }
+
   useEffect(() => {
     (async () => {
       try {
@@ -67,6 +78,7 @@ export default () => {
         console.log(error);
       }
     })();
+    getCurrentUser();
   });
   return (
     <View style={styles.container}>
@@ -76,16 +88,16 @@ export default () => {
         resizeMode="contain"
       />
 
-      <Text style={styles.Title}>user.username</Text>
-      <Text style={styles.data}>016-65893321</Text>
-      <TouchableOpacity style={styles.button2}>
+      <Text style={styles.Title}>{user.username}</Text>
+      <Text style={styles.data}>{user.mobile}</Text>
+      <TouchableOpacity onPress={declarePositive} style={styles.button2}>
         <Text style={styles.buttonText2}>Declare Positive</Text>
       </TouchableOpacity>
 
       <Text style={styles.Title}>Vaccination Status</Text>
-      <Text style={styles.data}>Vaccinated</Text>
+      <Text style={styles.data}>{checkVaccinated(user.vaccinated)}</Text>
       <Text style={styles.Title}>Health Status</Text>
-      <Text style={styles.data}>No Symptoms</Text>
+      <Text style={styles.data}>{checkHealth(user.status)}</Text>
       <Switch
         style={styles.switch}
         trackColor={{false: '#767577', true: '#81b0ff'}}

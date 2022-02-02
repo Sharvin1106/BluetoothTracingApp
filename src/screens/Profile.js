@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Image,
   StyleSheet,
@@ -10,22 +10,27 @@ import {
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/core';
 import {Card} from 'react-native-elements';
-import {getData, removeData, storeData} from '../utils/storage';
+import {
+  addCloseContact,
+  getData,
+  removeData,
+  storeData,
+} from '../utils/storage';
 import {startServices, stopService} from '../utils/initialService';
-import {getUser} from '../api';
+import {getUser, uploadDetails} from '../api';
 
 export default () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
   const [user, setUser] = useState({});
 
-  const getCurrentUser = async () => {
+  const getCurrentUser = useCallback(async () => {
     try {
       const userDetails = await getUser(auth().currentUser.uid);
       setUser(userDetails[0]);
       dispatch(authenticateUser(userDetails[0]));
     } catch (error) {}
-  };
+  });
 
   const handleSignOut = () => {
     auth()
@@ -63,9 +68,32 @@ export default () => {
     if (H == 'negative') return 'Negative';
   };
 
-  const declarePositive =() => {
-    user.status = 'Positive';
-  }
+  const declarePositive = async () => {
+    try {
+      const locationVisited = await getData('location_visited');
+      const my_uuid = await getData('my_bluetooth_uuid');
+      // const dummyContact = addCloseContact({
+      //   uploader: my_uuid,
+      //   _uuid: "8e92ab7d-6879-4a36-a5c7-1d460e7e708d",
+      //   _rssi: 32,
+      //   date: new Date().toISOString(),
+      // });
+      const closeContact = await getData('close_contact');
+      console.log({
+        uuid: my_uuid,
+        closeContact: JSON.parse(closeContact),
+        locationVisited: JSON.parse(locationVisited),
+      });
+      console.log(typeof JSON.parse(locationVisited));
+      // const sendData = await uploadDetails({
+      //   uuid: my_uuid,
+      //   closeContact: closeContact,
+      //   locationVisited: locationVisited,
+      // });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     (async () => {

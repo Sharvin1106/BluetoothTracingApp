@@ -25,3 +25,13 @@ export const createUser = async data => {
   const response = await apiV1.post('/createUser', data);
   return response.data;
 };
+
+export const getUser = async data => {
+  const response = await apiV1.get(`/getUser/${data}`);
+  return response.data;
+};
+
+export const uploadDetails = async data => {
+  const response = await apiV1.post('uploadContactDetails', data);
+  return response.data;
+};

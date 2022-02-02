@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   Alert,
   Text,
@@ -18,25 +18,65 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Avatar, Button, Card, Title, Paragraph} from 'react-native-paper';
 import {ProgressChart} from 'react-native-chart-kit';
 import axios from 'axios';
+import {checkOutLocation} from '../redux/checkIn';
+import {getLocationDetails} from './Scan';
+import {getUser} from '../api';
+import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/core';
+import {authenticateUser} from '../redux/auth';
+import {getData} from '../utils/storage';
 
 const Home = props => {
   const data = {
-    labels: ['Apple', 'Banana', 'Cherry'], // optional
+    labels: ['Oxygen', 'Temperature', 'Others'], // optional
     data: [0.2, 0.5, 0.8],
   };
-
+  const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
-  //This part of the code will retrieve all items from the checkIn store
-  //Check in store is in redux/store/checkIn
-  //You will need to use useSelector hook to get checkIn details
-  // state.checkIn - specifying which redux reducer yr referring to
-  // useDispatch will be used to execute function inside redux
-  //You can't simply call them as usual functions, it will not update the store nor screen
-  // So you need a useDispatch hook to execute them
+  const [user, setUser] = useState({});
+  const [LocationCount, setLocationCount] = useState(0);
   const {locations} = useSelector(state => state.checkIn);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   var size = locations.length;
-  console.log(size);
+
+  const getCurrentUser = useCallback(async () => {
+    try {
+      const userDetails = await getUser(auth().currentUser.uid);
+      setUser(userDetails[0]);
+      statusCheck(userDetails[0]);
+      dispatch(authenticateUser(userDetails[0]));
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  const statusCheck = userDetail => {
+    console.log(userDetail);
+    if (userDetail.status === 'Suspect') {
+      Alert.alert(
+        'Exposure Notification',
+        'You have been classified as casual contact, please upload your contact details',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              console.log('ok');
+            },
+          },
+        ],
+      );
+    }
+  };
+  useEffect(() => {
+    (async () => {
+      try {
+        const locations = await getData('location_visited');
+        console.log(locations);
+      } catch (error) {}
+    })();
+    getCurrentUser();
+  }, [navigation]);
+
   return (
     <View style={[styles.container]}>
       <StatusBar
@@ -49,32 +89,28 @@ const Home = props => {
           style={{
             height: Platform.OS === 'android' ? getStatusBarHeight() : 0,
           }}></View>
-        <ImageContainer scrollY={scrollY} />
+        <ImageContainer user={user} scrollY={scrollY} />
         <BottomContainer scrollY={scrollY} imageHeight={450}>
           <View style={styles.column}>
             {locations.map((location, i) => {
-              console.log(location.checkInObj.loc);
-              if (i == size - 1)
+              console.log(location.loc);
+              if (size === 0) {
                 return (
                   <Card style={styles.checkOut}>
                     <Card.Content>
                       <Title style={styles.paragraph}>
-                        Checked in at {location.checkInObj.loc}
+                        You're not checked in anywhere.
                       </Title>
-                      <Paragraph style={styles.paragraph2}>
-                        Date: {location.checkInObj.date}
-                      </Paragraph>
-                      <Paragraph style={styles.paragraph2}>
-                        Time: {location.checkInObj.time}
-                      </Paragraph>
                     </Card.Content>
                     <Card.Actions>
                       <Button
-                        onPress={() =>
+                        onPress={() => {
+                          dispatch(checkOutLocation(location.id));
+                          getLocationDetails;
                           axios.post(
                             'https://jom-trace-backend.herokuapp.com/checkOut',
                             {
-                              location: location.checkInObj.id,
+                              location: location.id,
                             },
                             {
                               headers: {
@@ -82,8 +118,47 @@ const Home = props => {
                                 //other header fields
                               },
                             },
-                          )
-                        }
+                          );
+                        }}
+                        style={styles.button}>
+                        Check-Out
+                      </Button>
+                    </Card.Actions>
+                  </Card>
+                );
+              }
+              if (i == size - 1)
+                return (
+                  <Card style={styles.checkOut}>
+                    <Card.Content>
+                      <Title style={styles.paragraph}>
+                        Checked in at {location.loc}
+                      </Title>
+                      <Paragraph style={styles.paragraph2}>
+                        Date: {location.date}
+                      </Paragraph>
+                      <Paragraph style={styles.paragraph2}>
+                        Time: {location.time}
+                      </Paragraph>
+                    </Card.Content>
+                    <Card.Actions>
+                      <Button
+                        onPress={() => {
+                          dispatch(checkOutLocation(location.id));
+                          getLocationDetails;
+                          axios.post(
+                            'https://jom-trace-backend.herokuapp.com/checkOut',
+                            {
+                              location: location.id,
+                            },
+                            {
+                              headers: {
+                                'Content-Type': 'application/json',
+                                //other header fields
+                              },
+                            },
+                          );
+                        }}
                         style={styles.button}>
                         Check-Out
                       </Button>
@@ -98,7 +173,7 @@ const Home = props => {
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
                   <Title>Hotspot Tracker</Title>
-                  <Text style={styles.stats}>88</Text>
+                  <Text style={styles.stats}>0</Text>
                   <Paragraph style={styles.paragraph}>
                     hotspot location have been visited in the last 14 days.
                   </Paragraph>
@@ -112,7 +187,7 @@ const Home = props => {
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
                   <Title>Risk Estimation</Title>
-                  <Text style={styles.stats}>83%</Text>
+                  <Text style={styles.stats}>15%</Text>
                   <Paragraph style={styles.paragraph}>
                     You’re less likely exposed to Covid-19. Stay safe!
                   </Paragraph>
@@ -121,7 +196,7 @@ const Home = props => {
             </View>
           </View>
 
-          <View style={styles.row}>
+          {/* <View style={styles.row}>
             <View style={styles.seveReport}>
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
@@ -144,7 +219,7 @@ const Home = props => {
                 />
               </Card>
             </View>
-          </View>
+          </View> */}
         </BottomContainer>
       </SafeAreaView>
     </View>

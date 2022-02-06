@@ -47,7 +47,7 @@ const Home = props => {
     }
   });
   const statusCheck = userDetail => {
-    console.log(userDetail);
+   // console.log(userDetail);
     if (userDetail?.status === 'Suspected') {
       Alert.alert(
         'Exposure Notification',
@@ -68,9 +68,10 @@ const Home = props => {
     try {
       if (closeContacts !== 0) {
         const userUuid = await getData('my_bluetooth_uuid');
+        const myContacts = await getData('close_contact')
         const userCentrality = await getCentrality({
           uuid: userUuid,
-          closeContact: closeContacts,
+          closeContact: myContacts,
         });
         setCentrality(userCentrality);
       }
@@ -84,24 +85,35 @@ const Home = props => {
     else return 'less'
   }
   useEffect(() => {
-    if (isFocused) {
+    //if (isFocused) {
       (async () => {
         try {
-          if (isFocused) {
+         // if (isFocused) {
             const locationNumber = await getData('hotspot_visited');
-            const contactsNumber = await getData('close_contact');
             console.log(locationNumber);
             console.log(locationNumber.length);
             setHotspotLocation(JSON.parse(locationNumber).length);
-            setCloseContacts(JSON.parse(contactsNumber).length);
-            fetchCentrality();
-          }
+         // }
         } catch (error) {
           console.log(error);
         }
       })();
+
+      (async () => {
+        try {
+         // if (isFocused) {
+            const contactsNumber = await getData('close_contact');
+            console.log(contactsNumber);
+            setCloseContacts(JSON.parse(contactsNumber).length);
+            fetchCentrality();
+         // }
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+
       getCurrentUser();
-    }
+  //  }
   }, [navigation, isFocused]);
 
   return (

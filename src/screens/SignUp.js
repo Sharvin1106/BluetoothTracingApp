@@ -10,15 +10,14 @@ import {
   View,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {getUser} from '../api';
-import {getData, storeData} from '../utils/storage';
+import {createUser, getUser} from '../api';
+import {storeData} from '../utils/storage';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const [isSignIn, setIsSignIn] = useState(false);
-  const [uuid,setUUID]=useState('');
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -40,8 +39,7 @@ const SignUp = () => {
       const userDetails = await getUser(user.user.uid);
       console.log(userDetails);
       storeData('my_bluetooth_uuid', userDetails[0].uuid);
-      navigation.replace('Tabs');
-      setIsSignIn(true);
+      //  setIsSignIn(true);
     } catch (error) {
       alert('Invalid credentials, Please try again.');
       console.log(error);
@@ -50,16 +48,16 @@ const SignUp = () => {
 
   // SIGN UP AUTHENTICATION METHOD
   const handleSignUp = async () => {
-    try {
-      const signUp = await auth().createUserWithEmailAndPassword(
-        email,
-        password,
-      );
-      //setIsSignUp(true);
-      navigation.replace('Form');
-      return null;
-    } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User account created & signed in!');
+        setIsSignUp(true);
+        navigation.replace('Form');
+        return null;
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
           alert('That email address is already in use!');
           console.log('That email address is already in use!');
         }
@@ -70,45 +68,16 @@ const SignUp = () => {
         }
 
         console.error(error);
-    }
-    // auth()
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(() => {
-    //     console.log('User account created & signed in!');
-    //     setIsSignUp(true);
-    //     navigation.replace('Form');
-    //     return null;
-    //   })
-    //   .catch(error => {
-    //     if (error.code === 'auth/email-already-in-use') {
-    //       alert('That email address is already in use!');
-    //       console.log('That email address is already in use!');
-    //     }
-
-    //     if (error.code === 'auth/invalid-email') {
-    //       alert('That email address is invalid!');
-    //       console.log('That email address is invalid!');
-    //     }
-
-    //     console.error(error);
-    //   });
+      });
   };
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    (async() => {
-      try{
-      const ble_id = await getData('my_bluetooth_uuid');
-      setUUID(ble_id);
-      }catch(err){
-      console.log(err);
-      }
-      })()
     return subscriber; // unsubscribe on unmount
   }, []);
 
   if (initializing) return null;
-  if (uuid) {
+  if (!isSignUp && auth().currentUser?.uid) {
     console.log('I dont know why I get executed');
     navigation.replace('Tabs');
     return null;

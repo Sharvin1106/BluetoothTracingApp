@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, Animated, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {addCloseContact} from '../utils/storage';
 
 const ImageContainer = ({user, closeContacts}) => {
   return (
@@ -12,8 +11,7 @@ const ImageContainer = ({user, closeContacts}) => {
       style={styles.linearGradient}>
       <Text style={styles.titleText}>JomTrace</Text>
       <Text style={styles.Text}>
-        Hey {user?.username}, mask up! {'\n'}You’ve been in contact with{' '}
-        {closeContacts} people today.
+        Hey {user?.username}, mask up! {'\n'}You’ve been in contact with {closeContacts} people today.
       </Text>
     </LinearGradient>
   );

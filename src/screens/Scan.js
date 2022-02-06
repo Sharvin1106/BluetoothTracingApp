@@ -145,7 +145,6 @@ const Scan = ({navigation}) => {
         </Text>
       </View>
 
-      //<ActivityIndicator style={styles.loading} size="large" color="#1AEBA4" />
     );
   }
 

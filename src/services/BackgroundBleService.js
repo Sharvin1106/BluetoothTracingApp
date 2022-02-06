@@ -13,7 +13,7 @@ export default class BLEBackgroundService {
   static listeners = []; // Objects that implement event onDevice(data), onScanSatus, onBroadcastStatus
   static uuid;
   static cachedLastSeen = {};
-  static c1MIN = 1000 * 60;
+  static c1MIN = 1000 * 10;
 
   //CHECK DISTANCE
   static checkDistance(_rssi) {
@@ -182,7 +182,6 @@ export default class BLEBackgroundService {
                 event.rssi,
                 new Date(),
               );
-              
             }
           }
         }

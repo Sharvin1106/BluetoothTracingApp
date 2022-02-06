@@ -10,15 +10,13 @@ import {
   View,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import messaging from '@react-native-firebase/messaging';
-import {createUser, getUser} from '../api';
+import {getUser} from '../api';
 import {storeData} from '../utils/storage';
-import BLEBackgroundService from '../services/BackgroundBleService';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
+  //const [isSignUp, setIsSignUp] = useState(false);
   const [isSignIn, setIsSignIn] = useState(false);
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -41,7 +39,7 @@ const SignUp = () => {
       const userDetails = await getUser(user.user.uid);
       console.log(userDetails);
       storeData('my_bluetooth_uuid', userDetails[0].uuid);
-      //  setIsSignIn(true);
+      setIsSignIn(true);
     } catch (error) {
       alert('Invalid credentials, Please try again.');
       console.log(error);
@@ -50,16 +48,16 @@ const SignUp = () => {
 
   // SIGN UP AUTHENTICATION METHOD
   const handleSignUp = async () => {
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('User account created & signed in!');
-        setIsSignUp(true);
-        navigation.replace('Form');
-        return null;
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
+    try {
+      const signUp = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      //setIsSignUp(true);
+      navigation.replace('Form');
+      return null;
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
           alert('That email address is already in use!');
           console.log('That email address is already in use!');
         }
@@ -70,7 +68,28 @@ const SignUp = () => {
         }
 
         console.error(error);
-      });
+    }
+    // auth()
+    //   .createUserWithEmailAndPassword(email, password)
+    //   .then(() => {
+    //     console.log('User account created & signed in!');
+    //     setIsSignUp(true);
+    //     navigation.replace('Form');
+    //     return null;
+    //   })
+    //   .catch(error => {
+    //     if (error.code === 'auth/email-already-in-use') {
+    //       alert('That email address is already in use!');
+    //       console.log('That email address is already in use!');
+    //     }
+
+    //     if (error.code === 'auth/invalid-email') {
+    //       alert('That email address is invalid!');
+    //       console.log('That email address is invalid!');
+    //     }
+
+    //     console.error(error);
+    //   });
   };
 
   useEffect(() => {
@@ -79,7 +98,7 @@ const SignUp = () => {
   }, []);
 
   if (initializing) return null;
-  if (!isSignUp && auth().currentUser?.uid) {
+  if (isSignIn) {
     console.log('I dont know why I get executed');
     navigation.replace('Tabs');
     return null;

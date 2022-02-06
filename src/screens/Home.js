@@ -18,7 +18,7 @@ import {Button, Card, Title, Paragraph} from 'react-native-paper';
 import axios from 'axios';
 import {checkOutLocation} from '../redux/checkIn';
 import {getLocationDetails} from './Scan';
-import {getUser} from '../api';
+import {getCentrality, getUser} from '../api';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/core';
 import {authenticateUser} from '../redux/auth';
@@ -26,15 +26,11 @@ import {getData} from '../utils/storage';
 import {useIsFocused} from '@react-navigation/core';
 
 const Home = props => {
-  const data = {
-    labels: ['Oxygen', 'Temperature', 'Others'], // optional
-    data: [0.2, 0.5, 0.8],
-  };
-  //const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [user, setUser] = useState({});
   const [hotspotLocation, setHotspotLocation] = useState(0);
   const [closeContacts, setCloseContacts] = useState(0);
+  const [centrality, setCentrality] = useState(0);
   const {locations} = useSelector(state => state.checkIn);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -52,7 +48,7 @@ const Home = props => {
   });
   const statusCheck = userDetail => {
     console.log(userDetail);
-    if (userDetail.status === 'Suspected') {
+    if (userDetail?.status === 'Suspected') {
       Alert.alert(
         'Exposure Notification',
         'You have been classified as casual contact, please upload your contact details',
@@ -67,6 +63,26 @@ const Home = props => {
       );
     }
   };
+
+  const fetchCentrality = async() => {
+    try {
+      if (closeContacts !== 0) {
+        const userUuid = await getData('my_bluetooth_uuid');
+        const userCentrality = await getCentrality({
+          uuid: userUuid,
+          closeContact: closeContacts,
+        });
+        setCentrality(userCentrality);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getCentralityRange = C => {
+    if (C > 0.5) return 'more'
+    else return 'less'
+  }
   useEffect(() => {
     if (isFocused) {
       (async () => {
@@ -78,6 +94,7 @@ const Home = props => {
             console.log(locationNumber.length);
             setHotspotLocation(JSON.parse(locationNumber).length);
             setCloseContacts(JSON.parse(contactsNumber).length);
+            fetchCentrality();
           }
         } catch (error) {
           console.log(error);
@@ -186,9 +203,9 @@ const Home = props => {
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
                   <Title>Risk Estimation</Title>
-                  <Text style={styles.stats}>15%</Text>
+                  <Text style={styles.stats}>{centrality?centrality*100: 0}%</Text>
                   <Paragraph style={styles.paragraph}>
-                    You’re less likely exposed to Covid-19. Stay safe!
+                    You’re {getCentralityRange(centrality)} likely exposed to Covid-19. Stay safe!
                   </Paragraph>
                 </Card.Content>
               </Card>

@@ -48,13 +48,14 @@ const SignUp = () => {
   };
 
   // SIGN UP AUTHENTICATION METHOD
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
         setIsSignUp(true);
-        navigation.replace('UserForm');
+        navigation.replace('Form');
+        return null;
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -78,6 +79,7 @@ const SignUp = () => {
 
   if (initializing) return null;
   if (!isSignUp && auth().currentUser?.uid) {
+    console.log('I dont know why I get executed');
     navigation.replace('Tabs');
     return null;
   }

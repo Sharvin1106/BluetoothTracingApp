@@ -23,11 +23,11 @@ const Auth = () => {
         component={SignUp}
       />
 
-      <Stack.Screen
+      {/* <Stack.Screen
         options={{headerShown: false}}
         name="UserForm"
         component={UserForm}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };

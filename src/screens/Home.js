@@ -47,7 +47,7 @@ const Home = props => {
     }
   });
   const statusCheck = userDetail => {
-   // console.log(userDetail);
+    // console.log(userDetail);
     if (userDetail?.status === 'Suspected') {
       Alert.alert(
         'Exposure Notification',
@@ -64,11 +64,11 @@ const Home = props => {
     }
   };
 
-  const fetchCentrality = async() => {
+  const fetchCentrality = async () => {
     try {
       if (closeContacts !== 0) {
         const userUuid = await getData('my_bluetooth_uuid');
-        const myContacts = await getData('close_contact')
+        const myContacts = await getData('close_contact');
         const userCentrality = await getCentrality({
           uuid: userUuid,
           closeContact: myContacts,
@@ -81,39 +81,39 @@ const Home = props => {
   };
 
   const getCentralityRange = C => {
-    if (C > 0.5) return 'more'
-    else return 'less'
-  }
+    if (C < 0.02) return 'more';
+    else return 'less';
+  };
   useEffect(() => {
     //if (isFocused) {
-      (async () => {
-        try {
-         // if (isFocused) {
-            const locationNumber = await getData('hotspot_visited');
-            console.log(locationNumber);
-            console.log(locationNumber.length);
-            setHotspotLocation(JSON.parse(locationNumber).length);
-         // }
-        } catch (error) {
-          console.log(error);
-        }
-      })();
+    (async () => {
+      try {
+        // if (isFocused) {
+        const locationNumber = await getData('hotspot_visited');
+        console.log(locationNumber);
+        console.log(locationNumber.length);
+        setHotspotLocation(JSON.parse(locationNumber).length);
+        // }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
 
-      (async () => {
-        try {
-         // if (isFocused) {
-            const contactsNumber = await getData('close_contact');
-            console.log(contactsNumber);
-            setCloseContacts(JSON.parse(contactsNumber).length);
-            fetchCentrality();
-         // }
-        } catch (error) {
-          console.log(error);
-        }
-      })();
+    (async () => {
+      try {
+        // if (isFocused) {
+        const contactsNumber = await getData('close_contact');
+        console.log(contactsNumber);
+        setCloseContacts(JSON.parse(contactsNumber).length);
+        fetchCentrality();
+        // }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
 
-      getCurrentUser();
-  //  }
+    getCurrentUser();
+    //  }
   }, [navigation, isFocused]);
 
   return (
@@ -215,9 +215,12 @@ const Home = props => {
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
                   <Title>Risk Estimation</Title>
-                  <Text style={styles.stats}>{centrality?centrality*100: 0}%</Text>
+                  <Text style={styles.stats}>
+                    {centrality ? 1 / centrality : 0}%
+                  </Text>
                   <Paragraph style={styles.paragraph}>
-                    You’re {getCentralityRange(centrality)} likely exposed to Covid-19. Stay safe!
+                    You’re {getCentralityRange(centrality)} likely exposed to
+                    Covid-19. Stay safe!
                   </Paragraph>
                 </Card.Content>
               </Card>

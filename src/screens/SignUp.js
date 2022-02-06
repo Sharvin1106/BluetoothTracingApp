@@ -11,13 +11,14 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {getUser} from '../api';
-import {storeData} from '../utils/storage';
+import {getData, storeData} from '../utils/storage';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //const [isSignUp, setIsSignUp] = useState(false);
   const [isSignIn, setIsSignIn] = useState(false);
+  const [uuid,setUUID]=useState('');
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -39,6 +40,7 @@ const SignUp = () => {
       const userDetails = await getUser(user.user.uid);
       console.log(userDetails);
       storeData('my_bluetooth_uuid', userDetails[0].uuid);
+      navigation.replace('Tabs');
       setIsSignIn(true);
     } catch (error) {
       alert('Invalid credentials, Please try again.');
@@ -94,11 +96,19 @@ const SignUp = () => {
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    (async() => {
+      try{
+      const ble_id = await getData('my_bluetooth_uuid');
+      setUUID(ble_id);
+      }catch(err){
+      console.log(err);
+      }
+      })()
     return subscriber; // unsubscribe on unmount
   }, []);
 
   if (initializing) return null;
-  if (isSignIn) {
+  if (uuid) {
     console.log('I dont know why I get executed');
     navigation.replace('Tabs');
     return null;

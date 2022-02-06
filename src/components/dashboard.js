@@ -11,7 +11,7 @@ const BottomContainer = ({scrollY, imageHeight, ...props}) => {
     <Animated.ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
-        paddingBottom: 350,
+        paddingBottom: 20,
         backgroundColor: 'transparent',
         marginTop: -250,
       }}
@@ -38,7 +38,7 @@ const BottomContainer = ({scrollY, imageHeight, ...props}) => {
 
 const styles = StyleSheet.create({
   block: {
-    backgroundColor: '#F2F4F7',
+    backgroundColor: '#D5FFE3',
     width: deviceWidth,
     height: deviceHeight,
   },

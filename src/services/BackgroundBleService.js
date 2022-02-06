@@ -2,6 +2,7 @@ import BLEAdvertiser from 'react-native-ble-advertiser';
 import {NativeEventEmitter, NativeModules} from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import {addCloseContact, getData, storeData} from '../utils/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //import UUIDGenerator from 'react-native-uuid-generator';
 
 export default class BLEBackgroundService {
@@ -79,39 +80,44 @@ export default class BLEBackgroundService {
 
   static async addDevice(_uuid, _name, _rssi, _date) {
     let lastSeenInMilliseconds = this.cachedLastSeen[_uuid];
-    if (
-      !lastSeenInMilliseconds ||
-      _date.getTime() > lastSeenInMilliseconds + this.c1MIN
-    ) {
-      
-    }
     try {
-      let device = {
-        serial: _uuid,
-        name: _name,
-        rssi: _rssi,
-        date: _date,
-      };
+      if (
+        !lastSeenInMilliseconds ||
+        _date.getTime() > lastSeenInMilliseconds + this.c1MIN
+      ) {
+        this.checkDistance(_rssi);
+        let device = {
+          serial: _uuid,
+          name: _name,
+          rssi: _rssi,
+          date: _date,
+        };
 
-      let contactData = {
-        uploader: await this.getMyUUID(),
-        _uuid,
-        _rssi,
-        date: _date.toISOString(),
-      };
+        let contactData = {
+          uploader: await this.getMyUUID(),
+          _uuid,
+          _rssi,
+          date: _date.toISOString(),
+        };
 
-      AsyncStorage.setItem(
-        'CONTACT' + _uuid + _date.toISOString(),
-        JSON.stringify(contactData),
-      );
-      console.log(getData('CONTACT' + _uuid + _date.toISOString()));
+        AsyncStorage.setItem(
+          'CONTACT' + _uuid + _date.toISOString(),
+          JSON.stringify(contactData),
+        );
+        console.log(getData('CONTACT' + _uuid + _date.toISOString()));
 
-      await addCloseContact(contactData);
-      this.cachedLastSeen[_uuid] = _date.getTime();
-      this.emitNewDevice(device);
+        await addCloseContact(contactData);
+        this.cachedLastSeen[_uuid] = _date.getTime();
+        this.emitNewDevice(device);
+      }
     } catch (error) {
       console.log(error);
     }
+    // try {
+
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   //   static setServicesUUID(deviceSerial) {
@@ -176,7 +182,7 @@ export default class BLEBackgroundService {
                 event.rssi,
                 new Date(),
               );
-              this.checkDistance(event.rssi);
+              
             }
           }
         }

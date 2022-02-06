@@ -33,7 +33,7 @@ const SignUp = () => {
   }
   const navigation = useNavigation();
 
-  // SIGN IN AUTHEMTICATION METHOD
+  // SIGN IN AUTHENTICATION METHOD
   const handleSignin = async () => {
     try {
       const user = await auth().signInWithEmailAndPassword(email, password);
@@ -75,14 +75,8 @@ const SignUp = () => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
- 
+
   if (initializing) return null;
-
-  // if (isSignUp) {
-  //   navigation.replace('UserForm');
-  //   return null;
-  // }
-
   if (!isSignUp && auth().currentUser?.uid) {
     navigation.replace('Tabs');
     return null;
@@ -126,8 +120,6 @@ const SignUp = () => {
       </View>
     </KeyboardAvoidingView>
   );
-  //RETURN LOADING COMPONENT
-  //navigation.replace('Home');
 };
 
 export default SignUp;
@@ -158,6 +150,7 @@ const styles = StyleSheet.create({
     paddingVertical: '4%',
     borderRadius: 10,
     marginTop: '5%',
+    color: '#000',
   },
   buttonContainer: {
     width: '65%',

@@ -12,7 +12,13 @@ const Tabs = () => {
     <Tab.Navigator
       tabBarOptions={{
         activeTintColor: '#1AEBA4',
-        style: {height: '8%', alignItems: 'center'},
+        
+        style: {
+          height: '8%',
+          alignItems: 'center',
+          borderTopLeftRadius: 41,
+          borderTopRightRadius: 41,
+        },
       }}
       initialRouteName="Home"
       screenOptions={{

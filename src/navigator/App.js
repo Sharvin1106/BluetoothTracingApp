@@ -10,6 +10,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {authenticateUser} from '../redux/auth';
 import auth from '@react-native-firebase/auth';
 
+
 const Stack = createStackNavigator();
 
 const theme = {
@@ -29,13 +30,7 @@ const App = () => {
           name="Auth"
           component={Auth}
         />
-        {/* auth().currentUser? (
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="UserForm"
-          component={UserForm}
-        />
-        ):( */}
+        
         <Stack.Screen
           options={{headerShown: false}}
           name="Tabs"

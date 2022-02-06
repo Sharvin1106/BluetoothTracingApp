@@ -43,6 +43,7 @@ const SignUp = () => {
       storeData('my_bluetooth_uuid', userDetails[0].uuid);
       //  setIsSignIn(true);
     } catch (error) {
+      alert('Invalid credentials, Please try again.');
       console.log(error);
     }
   };

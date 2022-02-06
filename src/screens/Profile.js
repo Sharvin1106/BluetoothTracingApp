@@ -9,7 +9,7 @@ import {
   Switch,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation, useIsFocused} from '@react-navigation/core';
 import {
   addCloseContact,
   getData,
@@ -26,6 +26,7 @@ export default () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const getCurrentUser = useCallback(async () => {
     try {
       const userDetails = await getUser(auth().currentUser.uid);
@@ -45,6 +46,7 @@ export default () => {
         removeData('close_contact');
         removeData('location_visited');
         removeData('hotspot_visited');
+        removeData('allow_tracing');
         navigation.replace('Auth');
       })
       .catch(error => alert(error.message));
@@ -110,18 +112,21 @@ export default () => {
   };
 
   useEffect(() => {
-    (async () => {
-      try {
-        const isAllowed = await getData('allow_tracing');
-        if (isAllowed) {
-          setIsEnabled(true);
+    if (isFocused) {
+      (async () => {
+        try {
+          const isAllowed = await getData('allow_tracing');
+          if (isAllowed) {
+            setIsEnabled(true);
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-    getCurrentUser();
-  }, [getCurrentUser]);
+      })();
+      getCurrentUser();
+      console.log('I got rerendered');
+    }
+  }, [navigation, isFocused]);
   return (
     <View style={styles.container}>
       <Image
@@ -133,7 +138,7 @@ export default () => {
       <Text style={styles.Title}>{user?.username}</Text>
       <Text style={styles.data}>{user?.mobile}</Text>
       <TouchableOpacity onPress={declarePositive} style={styles.button2}>
-        <Text style={styles.buttonText2}>Declare Positive  </Text>
+        <Text style={styles.buttonText2}>Declare Positive </Text>
       </TouchableOpacity>
 
       <Text style={styles.Title}>Vaccination Status</Text>

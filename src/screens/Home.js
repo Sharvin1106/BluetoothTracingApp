@@ -22,7 +22,7 @@ import {getUser} from '../api';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/core';
 import {authenticateUser} from '../redux/auth';
-import { getData } from '../utils/storage';
+import {getData} from '../utils/storage';
 import {useIsFocused} from '@react-navigation/core';
 
 const Home = props => {
@@ -68,21 +68,23 @@ const Home = props => {
     }
   };
   useEffect(() => {
-    (async () => {
-      try {
-        if (isFocused) {
-          const locationNumber = await getData('hotspot_visited');
-          const contactsNumber = await getData('close_contact');
-          console.log(locationNumber);
-          console.log(locationNumber.length);
-          setHotspotLocation(JSON.parse(locationNumber).length);
-          setCloseContacts(JSON.parse(contactsNumber).length);
+    if (isFocused) {
+      (async () => {
+        try {
+          if (isFocused) {
+            const locationNumber = await getData('hotspot_visited');
+            const contactsNumber = await getData('close_contact');
+            console.log(locationNumber);
+            console.log(locationNumber.length);
+            setHotspotLocation(JSON.parse(locationNumber).length);
+            setCloseContacts(JSON.parse(contactsNumber).length);
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-    getCurrentUser();
+      })();
+      getCurrentUser();
+    }
   }, [navigation, isFocused]);
 
   return (

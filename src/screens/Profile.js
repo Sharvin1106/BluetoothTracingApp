@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
-  Alert,
   Image,
   StyleSheet,
   Text,
@@ -11,7 +10,6 @@ import {
 import auth from '@react-native-firebase/auth';
 import {useNavigation, useIsFocused} from '@react-navigation/core';
 import {
-  addCloseContact,
   getData,
   removeData,
   storeData,
@@ -88,6 +86,7 @@ export default () => {
       //   _rssi: 32,
       //   date: new Date().toISOString(),
       // });
+      //TODO: REMOVE CONSOLE LOGS AND COMMENTED OUT LINES
       const closeContact = await getData('close_contact');
       console.log({
         uuid: my_uuid,

@@ -35,3 +35,8 @@ export const uploadDetails = async data => {
   const response = await apiV1.post('uploadContactDetails', data);
   return response.data;
 };
+
+export const getCentrality = async data => {
+  const response = await apiV1.post('/getCentrality', data);
+  return response.data;
+}

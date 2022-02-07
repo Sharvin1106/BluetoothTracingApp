@@ -10,10 +10,8 @@ import {
   View,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import messaging from '@react-native-firebase/messaging';
 import {createUser, getUser} from '../api';
 import {storeData} from '../utils/storage';
-import BLEBackgroundService from '../services/BackgroundBleService';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -43,6 +41,7 @@ const SignUp = () => {
       storeData('my_bluetooth_uuid', userDetails[0].uuid);
       //  setIsSignIn(true);
     } catch (error) {
+      alert('Invalid credentials, Please try again.');
       console.log(error);
     }
   };

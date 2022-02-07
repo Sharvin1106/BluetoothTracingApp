@@ -21,33 +21,12 @@ import {initializeFirebaseRemoteConfig} from './src/utils/remoteConfig';
 import {getData, storeData} from './src/utils/storage';
 import {LogBox} from 'react-native';
 import {startServices} from './src/utils/initialService';
+import {requestUserPermission} from './src/utils/Auth';
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 const App = () => {
-  const getFcmToken = async () => {
-    const fcmToken = await messaging().getToken();
-    if (fcmToken) {
-      console.log(fcmToken);
-      console.log('Your Firebase Token is:', fcmToken);
-    } else {
-      console.log('Failed', 'No token received');
-    }
-  };
-
-  const requestUserPermission = async () => {
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-    if (enabled) {
-      getFcmToken();
-      console.log('Authorization status:', authStatus);
-    }
-  };
-
   useEffect(() => {
     (async () => {
       try {

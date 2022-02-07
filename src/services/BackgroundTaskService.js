@@ -1,13 +1,12 @@
 import BackgroundFetch from 'react-native-background-fetch';
-// import {sync, isOnline} from '../helpers/SyncDB';
 import BLEBackgroundService from './BackgroundBleService';
 
 const INTERVAL = 15; // the value is received in minutes
-const TASK_ID = 'com.transistorsoft.childrenshospital.contacttracer.pulse';
+const TASK_ID = 'com.bluetoothtracingapp';
 
-export function executeTask() {
-  console.log('[BackgroundService] ExecuteTask Sync');
-  BLEBackgroundService.pulse();
+export function executeBGTask() {
+  console.log('[BackgroundFetch] ExecuteTask Sync');
+  BLEBackgroundService.BLEServiceExec();
 }
 
 export const scheduleTask = async () => {
@@ -26,16 +25,16 @@ export const scheduleTask = async () => {
       requiresStorageNotLow: false, // Default
       startOnBoot: true,
     });
-    console.log('[BackgroundService] Task scheduled');
+    console.log('[BackgroundFetch] Task scheduled');
   } catch (e) {
-    console.warn('[BackgroundService] ScheduleTask fail', e);
+    console.warn('[BackgroundFetch] ScheduleTask fail', e);
   }
 };
 
 export default class BackgroundTaskServices {
   static start() {
     // Configure it.
-    console.log('[BackgroundService] Configuring Background Task object');
+    console.log('[BackgroundFetch] Configuring Background Task object');
     BackgroundFetch.configure(
       {
         minimumFetchInterval: INTERVAL,
@@ -51,12 +50,12 @@ export default class BackgroundTaskServices {
         enableHeadless: true,
       },
       async taskId => {
-        console.log('[BackgroundService] Inner task start: ', taskId);
-        executeTask();
+        console.log('[BackgroundFetch] Inner task start: ', taskId);
+        executeBGTask();
 
         // If it comes from the Scheduler, start it again.
         if (
-          taskId === 'com.transistorsoft.childrenshospital.contacttracer.pulse'
+          taskId === 'com.bluetoothtracingapp'
         ) {
           // Test initiating a #scheduleTask when the periodic fetch event is received.
           try {
@@ -69,26 +68,25 @@ export default class BackgroundTaskServices {
           }
         }
 
-        console.log('[BackgroundService] Inner task end: ', taskId);
+        console.log('[BackgroundFetch] Inner task end: ', taskId);
         BackgroundFetch.finish(taskId);
       },
       error => {
-        console.warn('[BackgroundService] Failed to start', error);
+        console.warn('[BackgroundFetch] Failed to start', error);
       },
     );
 
-    // Optional: Query the authorization status.
     BackgroundFetch.status(status => {
       switch (status) {
         case BackgroundFetch.STATUS_RESTRICTED:
-          console.warn('[BackgroundService] BackgroundFetch restricted');
+          console.warn('[BackgroundFetch] BackgroundFetch restricted');
           break;
         case BackgroundFetch.STATUS_DENIED:
-          console.warn('[BackgroundService] BackgroundFetch denied');
+          console.warn('[BackgroundFetch] BackgroundFetch denied');
           break;
         case BackgroundFetch.STATUS_AVAILABLE:
-          console.log('[BackgroundService] BackgroundFetch is enabled');
-          executeTask();
+          console.log('[BackgroundFetch] BackgroundFetch is enabled');
+          executeBGTask();
           //scheduleTask();
           break;
       }

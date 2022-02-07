@@ -80,8 +80,12 @@ const Home = props => {
     }
   };
 
-  const getCentralityRange = C => {
-    if (C < 0.02) return 'more';
+  const getCentralityRange = (C, H) => {
+    var X = parseInt(
+      Math.log(1 / C) / Math.log(2.3) +
+        (Math.log(H + 1) / Math.log(1.6)) * 10,
+    );
+    if (X > 50) return 'more';
     else return 'less';
   };
   useEffect(() => {
@@ -216,10 +220,16 @@ const Home = props => {
                 <Card.Content>
                   <Title>Risk Estimation</Title>
                   <Text style={styles.stats}>
-                    {centrality ? 1 / centrality : 0}%
+                    {/* {centrality ? 1 / centrality : 0}% */}
+                    {centrality
+                      ? parseInt(
+                          ((Math.log((1/centrality)+1) / Math.log(1.7)) +
+                            (Math.log(hotspotLocation+1) / Math.log(1.3)) * 10))
+                      : 0}
+                    %
                   </Text>
                   <Paragraph style={styles.paragraph}>
-                    You’re {getCentralityRange(centrality)} likely exposed to
+                    You’re {getCentralityRange(centrality,hotspotLocation)} likely exposed to
                     Covid-19. Stay safe!
                   </Paragraph>
                 </Card.Content>

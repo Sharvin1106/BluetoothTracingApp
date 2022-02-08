@@ -134,7 +134,7 @@ const Home = props => {
           }}></View>
         <ImageContainer
           user={user}
-          closeContacts={closeContacts}
+          closeContacts={centrality? (1/(centrality+0.2)):0}
           scrollY={scrollY}
         />
         <BottomContainer scrollY={scrollY} imageHeight={450}>

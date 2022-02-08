@@ -11,7 +11,7 @@ const ImageContainer = ({user, closeContacts}) => {
       style={styles.linearGradient}>
       <Text style={styles.titleText}>JomTrace</Text>
       <Text style={styles.Text}>
-        Hey {user?.username}, mask up! {'\n'}You’ve been in contact with {closeContacts} people today.
+        Hey {user?.username}, mask up! {'\n'}You’ve been in contact with {closeContacts} people.
       </Text>
     </LinearGradient>
   );

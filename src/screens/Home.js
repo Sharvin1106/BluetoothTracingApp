@@ -134,10 +134,7 @@ const Home = props => {
           }}></View>
         <ImageContainer
           user={user}
-          closeContacts={
-            centrality
-              ? (1 / centrality) : 0
-          }
+          closeContacts={centrality ? 1 / centrality : 0}
           scrollY={scrollY}
         />
         <BottomContainer scrollY={scrollY} imageHeight={450}>
@@ -230,7 +227,7 @@ const Home = props => {
                             (Math.log(hotspotLocation + 1) / Math.log(1.5)) *
                               10,
                         )
-                      : 0}
+                      : parseInt((Math.log(hotspotLocation + 1) / Math.log(1.5)) * 10)}
                     %
                   </Text>
                   <Paragraph style={styles.paragraph}>

@@ -67,6 +67,9 @@ const SignUp = () => {
           console.log('That email address is invalid!');
         }
 
+        else
+          alert('Weak Password!');
+
         console.error(error);
       });
   };

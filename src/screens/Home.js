@@ -82,10 +82,10 @@ const Home = props => {
 
   const getCentralityRange = (C, H) => {
     var X = parseInt(
-      Math.log(1 / C) / Math.log(2.3) +
-        (Math.log(H + 1) / Math.log(1.6)) * 10,
+      Math.log(1 / C + 1) / Math.log(2.0) +
+        (Math.log(H + 1) / Math.log(1.7)) * 10,
     );
-    if (X > 50) return 'more';
+    if (X > 40) return 'more';
     else return 'less';
   };
   useEffect(() => {
@@ -134,7 +134,10 @@ const Home = props => {
           }}></View>
         <ImageContainer
           user={user}
-          closeContacts={centrality? (1/(centrality+0.2)):0}
+          closeContacts={
+            centrality
+              ? (1 / centrality) : 0
+          }
           scrollY={scrollY}
         />
         <BottomContainer scrollY={scrollY} imageHeight={450}>
@@ -223,14 +226,16 @@ const Home = props => {
                     {/* {centrality ? 1 / centrality : 0}% */}
                     {centrality
                       ? parseInt(
-                          ((Math.log((1/centrality)+1) / Math.log(1.7)) +
-                            (Math.log(hotspotLocation+1) / Math.log(1.3)) * 10))
+                          Math.log(1 / centrality + 1) / Math.log(1.7) +
+                            (Math.log(hotspotLocation + 1) / Math.log(1.5)) *
+                              10,
+                        )
                       : 0}
                     %
                   </Text>
                   <Paragraph style={styles.paragraph}>
-                    You’re {getCentralityRange(centrality,hotspotLocation)} likely exposed to
-                    Covid-19. Stay safe!
+                    You’re {getCentralityRange(centrality, hotspotLocation)}{' '}
+                    likely exposed to Covid-19. Stay safe!
                   </Paragraph>
                 </Card.Content>
               </Card>

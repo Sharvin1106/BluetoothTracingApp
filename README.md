@@ -26,7 +26,13 @@ The android app lets you:
 
 ## Screenshots
 
-[<img src="/assets/images/Home.jpg" align="left"
+[<img src="/assets/images/Sign-Up.jpg" align="left"
+width="200"
+    hspace="10" vspace="10">](/assets/images/Sign-Up.jpg)
+    [<img src="/assets/images/UserForm.jpg" align="left"
+width="200"
+    hspace="10" vspace="10">](/assets/images/UserForm.jpg)
+    [<img src="/assets/images/Home.jpg" align="left"
 width="200"
     hspace="10" vspace="10">](/assets/images/Home.jpg)
 [<img src="/assets/images/Check-In.jpg" align="center"

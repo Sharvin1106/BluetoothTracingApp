@@ -6,7 +6,7 @@ width="200" hspace="10" vspace="10">
 JomTrace is an innovative project which focuses on automated pandemic contact tracing using the Bluetooth technology to monitor pandemic. Our main motive is to break the chain of spread by sending automated notifications to users who might be exposed to Covid-19 and to ensure users to follow the SOP by sending distance alerts. This project is aimed to keep our USM community safe in this pandemic.
 
 JomTrace also have an dedicated backend for the Health Authorities.
-The OpenTrace reference implementation comprises:
+The JomTrace reference implementation comprises:
 - [JomTrace App (Repo)](https://github.com/Sharvin1106/BluetoothTracingApp)
 - [JomTrace Backend (Repo)](https://github.com/jom-trace/JomTrace-Backend)
 - [Health Authority Dashboard Streamlit (Repo)](https://github.com/jom-trace/dashboard_streamlit)
@@ -17,11 +17,11 @@ The OpenTrace reference implementation comprises:
 The android app lets you:
 - Easy Sign up using email and password.
 - Check in feature with realtime visitor counts.
-- Shows no of Hotspot Location visited.
+- Shows number of Hotspot Location visited.
 - Individual risk estimation values based on degree centrality and visited locations. 
 - Do contact tracing using bluetooth technology. (Foreground & Background)
-- Stores contact and checked-in location logs in mobile storage.
-- Sends/ receives 1M distance alerts using RSSI strength.
+- Stores close-contacts and checked-in location logs in mobile storage.
+- Sends/ receives 1 meter distance alerts using RSSI strength.
 - Sends/ receives exposure notification if came in contact with positive individuals.
 
 ## Screenshots

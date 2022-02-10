@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   StyleSheet,
-  Button,
   TextInput,
   View,
   Text,
@@ -13,12 +12,10 @@ import {useFormik} from 'formik';
 import {RadioButton} from 'react-native-paper';
 import {getUserId, requestUserPermission} from '../utils/Auth';
 import {createUser} from '../api';
-import messaging from '@react-native-firebase/messaging';
 import {storeData} from '../utils/storage';
 
 export default function UserForm() {
   const navigation = useNavigation();
-  const [checked, setChecked] = React.useState('first');
   const formik = useFormik({
     initialValues: {username: '', HpNo: '', vaccinated: ''},
     onSubmit: async values => {
@@ -41,8 +38,7 @@ export default function UserForm() {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          //style={globalStyles.input}
-          placeholder="username"
+          placeholder="Username"
           onChangeText={formik.handleChange('username')}
           value={formik.values.username}
         />
@@ -109,6 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: '5%',
     marginBottom: '5%',
+    color: '#000',
   },
   buttonContainer: {
     width: '65%',

@@ -15,8 +15,6 @@ export const checkInSlice = createSlice({
       state.locations = state.locations.filter(
         item => item.id !== action.payload,
       );
-      // console.log(state.locations);
-      // console.log(action.payload);
     },
   },
 });

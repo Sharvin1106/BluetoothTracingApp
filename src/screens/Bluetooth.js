@@ -1,21 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import {getData} from '../utils/storage';
 import {useSelector, useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/core';
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-  },
-];
 
 const Bluetooth = ({navigation}) => {
   const {auth} = useSelector(state => state.auth);
@@ -37,9 +25,15 @@ const Bluetooth = ({navigation}) => {
   }, [isFocused]);
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Broadcasting : </Text>
+      <LinearGradient
+        start={{x: 0, y: 0.5}}
+        end={{x: 1, y: 1}}
+        colors={['#67D7CE', '#83F3AD']}
+        style={styles.linearGradient}></LinearGradient>
+
+      <Text style={styles.titleText}>Broadcasting ID</Text>
       <Text style={styles.data}>{auth.uuid}</Text>
-      <Text style={styles.titleText}>Current Close{'\n'}Contacts:</Text>
+      <Text style={styles.titleText2}>Current Close{'\n'}Contacts:</Text>
       <FlatList
         data={closeContacts}
         renderItem={({item}) => <Text style={styles.item}>{item._uuid}</Text>}
@@ -48,19 +42,48 @@ const Bluetooth = ({navigation}) => {
   );
 };
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+    backgroundColor: '#D5FFE3',
+  },
+
+  linearGradient: {
+    position: 'absolute',
+    overflow: 'hidden',
+    top: 0,
+    left: 0,
+    right: 0,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    //borderRadius: 40,
+    width: '100%',
+    height: 160,
+    backgroundColor: '#f6f6f6',
+  },
   titleText: {
     fontFamily: 'Inter',
     fontSize: 38,
     fontWeight: 'bold',
     color: '#0D4930',
-    top: '3%',
+    marginTop: '10%',
+    textAlign: 'center',
+  },
+  titleText2: {
+    fontFamily: 'Inter',
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#0D4930',
+    top: '5%',
     margin: '10%',
     marginBottom: '5%',
     textAlign: 'center',
   },
   data: {
+    position: 'relative',
     fontFamily: 'SF Pro Display',
-    fontSize: 18,
+    fontSize: 16,
     color: '#3E4248',
     textAlign: 'center',
     marginBottom: '2%',
@@ -68,11 +91,11 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     margin: '5%',
-    marginHorizontal: 10,
     padding: 5,
     fontFamily: 'Inter',
     fontSize: 18,
     textAlign: 'center',
+    color: '#3E4248',
   },
 });
 export default Bluetooth;

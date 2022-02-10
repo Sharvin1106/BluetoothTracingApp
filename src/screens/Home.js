@@ -11,34 +11,30 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {deviceHeight} from '../helpers/constants';
-import {deviceWidth} from '../helpers/constants';
 import BottomContainer from '../components/dashboard';
 import ImageContainer from '../components/topContainer';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {Avatar, Button, Card, Title, Paragraph} from 'react-native-paper';
-import {ProgressChart} from 'react-native-chart-kit';
+import {Button, Card, Title, Paragraph} from 'react-native-paper';
 import axios from 'axios';
 import {checkOutLocation} from '../redux/checkIn';
 import {getLocationDetails} from './Scan';
-import {getUser} from '../api';
+import {getCentrality, getUser} from '../api';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/core';
 import {authenticateUser} from '../redux/auth';
 import {getData} from '../utils/storage';
+import {useIsFocused} from '@react-navigation/core';
 
 const Home = props => {
-  const data = {
-    labels: ['Oxygen', 'Temperature', 'Others'], // optional
-    data: [0.2, 0.5, 0.8],
-  };
-  const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [user, setUser] = useState({});
-  const [LocationCount, setLocationCount] = useState(0);
+  const [hotspotLocation, setHotspotLocation] = useState(0);
+  const [closeContacts, setCloseContacts] = useState(0);
+  const [centrality, setCentrality] = useState(0);
   const {locations} = useSelector(state => state.checkIn);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  var size = locations.length;
+  const isFocused = useIsFocused();
 
   const getCurrentUser = useCallback(async () => {
     try {
@@ -51,8 +47,8 @@ const Home = props => {
     }
   });
   const statusCheck = userDetail => {
-    console.log(userDetail);
-    if (userDetail.status === 'Suspect') {
+    // console.log(userDetail);
+    if (userDetail?.status === 'Suspected') {
       Alert.alert(
         'Exposure Notification',
         'You have been classified as casual contact, please upload your contact details',
@@ -67,15 +63,62 @@ const Home = props => {
       );
     }
   };
+
+  const fetchCentrality = async () => {
+    try {
+      if (closeContacts !== 0) {
+        const userUuid = await getData('my_bluetooth_uuid');
+        const myContacts = await getData('close_contact');
+        const userCentrality = await getCentrality({
+          uuid: userUuid,
+          closeContact: myContacts,
+        });
+        setCentrality(userCentrality);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getCentralityRange = (C, H) => {
+    var X = parseInt(
+      Math.log(1 / C + 1) / Math.log(2.0) +
+        (Math.log(H + 1) / Math.log(1.7)) * 10,
+    );
+    if (X > 40) return 'more';
+    else return 'less';
+  };
   useEffect(() => {
+    //if (isFocused) {
     (async () => {
       try {
-        const locations = await getData('location_visited');
-        console.log(locations);
-      } catch (error) {}
+        // if (isFocused) {
+        const locationNumber = await getData('hotspot_visited');
+        console.log(locationNumber);
+        console.log(locationNumber.length);
+        setHotspotLocation(JSON.parse(locationNumber).length);
+        // }
+      } catch (error) {
+        console.log(error);
+      }
     })();
+
+    (async () => {
+      try {
+        // if (isFocused) {
+        const contactsNumber = await getData('close_contact');
+        console.log(contactsNumber);
+        setCloseContacts(JSON.parse(contactsNumber).length);
+        fetchCentrality();
+        // }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+
     getCurrentUser();
-  }, [navigation]);
+    //  }
+  }, [navigation, isFocused]);
 
   return (
     <View style={[styles.container]}>
@@ -89,82 +132,71 @@ const Home = props => {
           style={{
             height: Platform.OS === 'android' ? getStatusBarHeight() : 0,
           }}></View>
-        <ImageContainer user={user} scrollY={scrollY} />
+        <ImageContainer
+          user={user}
+          closeContacts={centrality ? 1 / centrality : 0}
+          scrollY={scrollY}
+        />
         <BottomContainer scrollY={scrollY} imageHeight={450}>
           <View style={styles.column}>
+            {!locations.length ? (
+              <Card style={styles.checkOut}>
+                <Card.Content>
+                  <Title style={styles.paragraph}>
+                    You're currently not check in to anywhere.
+                  </Title>
+                  <Paragraph style={styles.paragraph3}>
+                    🔰 Go to Check-In tab to Check-In a location.
+                  </Paragraph>
+                  <Paragraph style={styles.paragraph3}>
+                    🔰 Stay Safe & Mask Up!
+                  </Paragraph>
+                </Card.Content>
+              </Card>
+            ) : (
+              <View></View>
+            )}
+
             {locations.map((location, i) => {
               console.log(location.loc);
-              if (size === 0) {
-                return (
-                  <Card style={styles.checkOut}>
-                    <Card.Content>
-                      <Title style={styles.paragraph}>
-                        You're not checked in anywhere.
-                      </Title>
-                    </Card.Content>
-                    <Card.Actions>
-                      <Button
-                        onPress={() => {
-                          dispatch(checkOutLocation(location.id));
-                          getLocationDetails;
-                          axios.post(
-                            'https://jom-trace-backend.herokuapp.com/checkOut',
-                            {
-                              location: location.id,
+              console.log('Size=' + i);
+              return (
+                <Card style={styles.checkOut}>
+                  <Card.Content>
+                    <Title style={styles.paragraph}>
+                      Checked in at {location.loc}
+                    </Title>
+                    <Paragraph style={styles.paragraph2}>
+                      Date: {location.date}
+                    </Paragraph>
+                    <Paragraph style={styles.paragraph2}>
+                      Time: {location.time}
+                    </Paragraph>
+                  </Card.Content>
+                  <Card.Actions>
+                    <Button
+                      onPress={() => {
+                        dispatch(checkOutLocation(location.id));
+                        getLocationDetails;
+                        axios.post(
+                          'https://jom-trace-backend.herokuapp.com/checkOut',
+                          {
+                            location: location.id,
+                          },
+                          {
+                            headers: {
+                              'Content-Type': 'application/json',
+                              //other header fields
                             },
-                            {
-                              headers: {
-                                'Content-Type': 'application/json',
-                                //other header fields
-                              },
-                            },
-                          );
-                        }}
-                        style={styles.button}>
-                        Check-Out
-                      </Button>
-                    </Card.Actions>
-                  </Card>
-                );
-              }
-              if (i == size - 1)
-                return (
-                  <Card style={styles.checkOut}>
-                    <Card.Content>
-                      <Title style={styles.paragraph}>
-                        Checked in at {location.loc}
-                      </Title>
-                      <Paragraph style={styles.paragraph2}>
-                        Date: {location.date}
-                      </Paragraph>
-                      <Paragraph style={styles.paragraph2}>
-                        Time: {location.time}
-                      </Paragraph>
-                    </Card.Content>
-                    <Card.Actions>
-                      <Button
-                        onPress={() => {
-                          dispatch(checkOutLocation(location.id));
-                          getLocationDetails;
-                          axios.post(
-                            'https://jom-trace-backend.herokuapp.com/checkOut',
-                            {
-                              location: location.id,
-                            },
-                            {
-                              headers: {
-                                'Content-Type': 'application/json',
-                                //other header fields
-                              },
-                            },
-                          );
-                        }}
-                        style={styles.button}>
-                        Check-Out
-                      </Button>
-                    </Card.Actions>
-                  </Card>
-                );
+                          },
+                        );
+                      }}
+                      style={styles.button}>
+                      Check-Out
+                    </Button>
+                  </Card.Actions>
+                </Card>
+              );
             })}
           </View>
 
@@ -173,7 +205,7 @@ const Home = props => {
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
                   <Title>Hotspot Tracker</Title>
-                  <Text style={styles.stats}>0</Text>
+                  <Text style={styles.stats}>{hotspotLocation}</Text>
                   <Paragraph style={styles.paragraph}>
                     hotspot location have been visited in the last 14 days.
                   </Paragraph>
@@ -187,39 +219,25 @@ const Home = props => {
               <Card style={{borderRadius: 40}}>
                 <Card.Content>
                   <Title>Risk Estimation</Title>
-                  <Text style={styles.stats}>15%</Text>
+                  <Text style={styles.stats}>
+                    {/* {centrality ? 1 / centrality : 0}% */}
+                    {centrality
+                      ? parseInt(
+                          Math.log(1 / centrality + 1) / Math.log(1.7) +
+                            (Math.log(hotspotLocation + 1) / Math.log(1.5)) *
+                              10,
+                        )
+                      : parseInt((Math.log(hotspotLocation + 1) / Math.log(1.5)) * 10)}
+                    %
+                  </Text>
                   <Paragraph style={styles.paragraph}>
-                    You’re less likely exposed to Covid-19. Stay safe!
+                    You’re {getCentralityRange(centrality, hotspotLocation)}{' '}
+                    likely exposed to Covid-19. Stay safe!
                   </Paragraph>
                 </Card.Content>
               </Card>
             </View>
           </View>
-
-          {/* <View style={styles.row}>
-            <View style={styles.seveReport}>
-              <Card style={{borderRadius: 40}}>
-                <Card.Content>
-                  <Title>Severity Report</Title>
-                </Card.Content>
-                <ProgressChart
-                  data={data}
-                  width={deviceWidth - 30}
-                  height={220}
-                  chartConfig={{
-                    //backgroundColor: '#fff',
-                    backgroundGradientFrom: '#FFF',
-                    backgroundGradientTo: '#FFF5',
-                    //decimalPlaces: 2,
-                    color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
-                  }}
-                  style={{
-                    borderRadius: 40,
-                  }}
-                />
-              </Card>
-            </View>
-          </View> */}
         </BottomContainer>
       </SafeAreaView>
     </View>
@@ -228,7 +246,7 @@ const Home = props => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#D5FFE3',
     display: 'flex',
     flex: 1,
     height: deviceHeight,
@@ -239,7 +257,7 @@ const styles = StyleSheet.create({
 
   checkOut: {
     width: '100%',
-    paddingHorizontal: '5%',
+    paddingHorizontal: '1%',
     alignItems: 'flex-start',
     borderRadius: 40,
     shadowColor: '#3E4248',
@@ -302,7 +320,7 @@ const styles = StyleSheet.create({
   },
 
   paragraph: {
-    textAlign: 'center',
+    textAlign: 'left',
   },
 
   paragraph2: {
@@ -311,7 +329,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'SF Pro Text',
     fontWeight: 'bold',
-    color: '#0D4930',
+    //color: '#0D4930',
+  },
+
+  paragraph3: {
+    fontSize: 16,
+    //color: '#0D4930',
+    marginVertical: '3%',
   },
 
   button: {

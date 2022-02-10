@@ -51,6 +51,9 @@ On Android versions, JomTrace requires the following permissions:
 - Bluetooth
 - Location (Android Policy, we dont collect/use you location details)
 
+## App Testing
+
+Feel free to download our app and test it on your mobile phone. https://install.appcenter.ms/users/sharvin.kogilavanan-gmail.com/apps/jom-trace/distribution_groups/public . We will be rolling out the iOS version of our app very soon.
 
 ## Contributing
 

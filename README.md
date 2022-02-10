@@ -29,9 +29,9 @@ The android app lets you:
 [<img src="/assets/images/Sign-Up.jpg" align="left"
 width="200"
     hspace="10" vspace="10">](/assets/images/Sign-Up.jpg)
-    [<img src="/assets/images/UserForm.jpg" align="left"
+    [<img src="/assets/images/User-Form.jpg" align="left"
 width="200"
-    hspace="10" vspace="10">](/assets/images/UserForm.jpg)
+    hspace="10" vspace="10">](/assets/images/User-Form.jpg)
     [<img src="/assets/images/Home.jpg" align="left"
 width="200"
     hspace="10" vspace="10">](/assets/images/Home.jpg)

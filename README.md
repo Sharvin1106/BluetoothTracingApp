@@ -7,9 +7,10 @@ JomTrace is an innovative project which focuses on automated pandemic contact tr
 
 JomTrace also have an dedicated backend for the Health Authorities.
 The OpenTrace reference implementation comprises:
-- [JomTrace App](https://github.com/Sharvin1106/BluetoothTracingApp)
-- [JomTrace Backend](https://github.com/jom-trace/JomTrace-Backend)
-- [Health Authority Dashboard Streamlit](https://github.com/jom-trace/dashboard_streamlit)
+- [JomTrace App (Repo)](https://github.com/Sharvin1106/BluetoothTracingApp)
+- [JomTrace Backend (Repo)](https://github.com/jom-trace/JomTrace-Backend)
+- [Health Authority Dashboard Streamlit (Repo)](https://github.com/jom-trace/dashboard_streamlit)
+- [Health Autorithy Dashboard (Deployed)](https://jom-trace-dashboard.herokuapp.com/)
 
 ## Features
 
@@ -40,10 +41,9 @@ width="200"
 
 ## Permissions
 
-On Android versions prior to Android 6.0, wallabag requires the following permissions:
+On Android versions, JomTrace requires the following permissions:
 - Bluetooth
 - Location (Android Policy, we dont collect/use you location details)
-- Read and write access to internal storage.
 
 
 ## Contributing

@@ -25,18 +25,18 @@ The android app lets you:
 
 ## Screenshots
 
-[<img src="/assets/images/Home.png" align="left"
+[<img src="/assets/images/Home.jpg" align="left"
 width="200"
-    hspace="10" vspace="10">](/assets/images/Home.png)
-[<img src="/assets/images/Check-In.png" align="center"
+    hspace="10" vspace="10">](/assets/images/Home.jpg)
+[<img src="/assets/images/Check-In.jpg" align="center"
 width="200"
-    hspace="10" vspace="10">](/assets/images/Check-In.png)
-[<img src="/assets/images/Bluetooth.png" align="center"
+    hspace="10" vspace="10">](/assets/images/Check-In.jpg)
+[<img src="/assets/images/Bluetooth.jpg" align="center"
 width="200"
-    hspace="10" vspace="10">](/assets/images/Bluetooth.png)
-[<img src="/assets/images/Profile.png" align="center"
+    hspace="10" vspace="10">](/assets/images/Bluetooth.jpg)
+[<img src="/assets/images/Profile.jpg" align="center"
 width="200"
-    hspace="10" vspace="10">](/assets/images/Profile.png)
+    hspace="10" vspace="10">](/assets/images/Profile.jpg)
 
 ## Permissions
 
